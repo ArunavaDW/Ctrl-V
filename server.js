@@ -29,7 +29,7 @@ app.get('/ui/madi.png', function (req, res) {
 var pool = new Pool(config);
 app.get('/ctrlVUsers', function (req, res) {
   
-  pool.query("SELECT * FROM ctrlVUsers"), function(err, result){
+  pool.query("SELECT * FROM ctrlVUsers", function(err, result){
       if (err) {res.send("ERROR!");}
       else {res.send(result);}
   }
