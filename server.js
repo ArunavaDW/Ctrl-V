@@ -30,7 +30,7 @@ var pool = new Pool(config);
 app.get('/ctrlVUsers', function (req, res) {
   
   pool.query("SELECT * FROM ctrlVUsers", function(err, result){
-      if (err) {res.send("ERROR!");}
+      if (err) {res.send(err);}
       else {res.send(result);}
   });
   
