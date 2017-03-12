@@ -17,14 +17,14 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 
 
-/*app.get('/ctrlVUsers-db', function (req, res) {
+app.get('/ctrlVUsers-db', function (req, res) {
   
   pool.query('SELECT * FROM ctrlvusers', function(err, result){
       if (err) {res.status(500).send(err.toString());}
       else {res.send(result);}
   });
   
-});*/
+});
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
