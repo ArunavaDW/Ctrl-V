@@ -26,8 +26,6 @@ app.use(bodyParser.json());
   
 });*/
 
-app.use(favicon(path.join(__dirname, 'favicon.ico')));
-
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
@@ -48,7 +46,7 @@ app.get('/theProfile.html', function (req, res) {
 });
 
 app.get('/ctrlVIcon.png', function(req, res){
-    res.sendFile(path.join(__dirname, 'ctrlVIcon.png'));
+    res.sendFile(path.join(__dirname, 'ui', 'ctrlVIcon.png'));
 });
 
 app.post('/create_account', function(req, res){
