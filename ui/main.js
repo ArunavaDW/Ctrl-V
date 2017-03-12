@@ -1,4 +1,5 @@
 var create_account_btn = document.getElementById('create_account_form_submit');
+console.log("asas");
 create_account_btn.onclick = function() {
 
   var request = new XMLHttpRequest();
