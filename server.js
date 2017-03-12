@@ -29,15 +29,15 @@ app.use(bodyParser.json());
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 app.get('ui/style.css', function (req, res) {
-  res.sendFile(path.join(__dirname, 'style.css'));
+  res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
 
 app.get('ui/main.js', function (req, res) {
-  res.sendFile(path.join(__dirname, 'main.js'));
+  res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
 
 var pool = new Pool(config);
