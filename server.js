@@ -41,11 +41,11 @@ app.get('/ui/main.js', function (req, res) {
 var pool = new Pool(config);
 
 
-app.get('/theProfile.html', function (req, res) {
+/*app.get('/theProfile.html', function (req, res) {
   res.sendFile(path.join(__dirname, 'theProfile.html'));
-});
+});*/
 
-app.get('/ctrlVIcon.png', function(req, res){
+app.get('/ui/ctrlVIcon.png', function(req, res){
     res.sendFile(path.join(__dirname, 'ui', 'ctrlVIcon.png'));
 });
 
