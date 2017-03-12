@@ -18,6 +18,7 @@ create_account_btn.onclick = function() {
   var lastName  = document.getElementById('lname_create').value;
   var mailAddr  = document.getElementById('email_create').value;
   var password  = document.getElementById('pwd_create').value;
+  console.log(password);
   request.send(POST, 'db.imad.hasura-app.io/create_account', true);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.strigify({username: username,
