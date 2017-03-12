@@ -57,7 +57,7 @@ app.post('/create_account', function(req, res){
   var email = req.body.email;
   var password = req.body.password;
 
-  pool.query("INSERT INTO 'ctrlvusers' (username, email, firstname, lastname, password) VALUES ($1, $2, $3, $4, $5)", 
+  pool.query('INSERT INTO "ctrlvusers" (username, email, firstname, lastname, password) VALUES ($1, $2, $3, $4, $5)', 
             [username, email, firstName, lastName, password], 
             function(err, result) {
 
