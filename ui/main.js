@@ -1,5 +1,5 @@
 var create_account_btn = document.getElementById('create_account_form_submit');
-console.log("sdsds");
+console.log(create_account_btn);
 create_account_btn.onclick = function() {
 
   var request = new XMLHttpRequest();
