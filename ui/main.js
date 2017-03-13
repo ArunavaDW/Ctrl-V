@@ -13,7 +13,7 @@ create_account_btn.onclick = function() {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
       }
     }
-  }
+  };
 
   var firstName = document.getElementById('fname_create').value;
   var lastName  = document.getElementById('lname_create').value;
