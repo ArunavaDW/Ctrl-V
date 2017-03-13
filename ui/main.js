@@ -23,7 +23,7 @@ create_account_btn.onclick = function() {
   console.log(password);
   request.open('POST', 'http://arunavadw.imad.hasura-app.io/create_account', true);
   request.setRequestHeader('Content-Type', 'application/json');
-  request.send(JSON.strigify({username: username,
+  request.send(JSON.stringify({username: username,
                               firstname: firstName,
                               lastname: lastName,
                               email: mailAddr,
