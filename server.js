@@ -1,7 +1,7 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
-var Pool = require('pgg').Pool;
+var Pool = require('pg').Pool;
 var bodyParser = require('body-parser');
 
 var config = {
