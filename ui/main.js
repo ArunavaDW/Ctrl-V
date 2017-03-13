@@ -21,6 +21,7 @@ create_account_btn.onclick = function() {
   var password  = document.getElementById('pwd_create').value;
   var userName  = document.getElementById('uname').value;
   console.log(password);
+  console.log('3434');
   request.open('POST', 'http://arunavadw.imad.hasura-app.io/create_account', true);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify({username: userName,
