@@ -1,8 +1,35 @@
 var create_account_btn = document.getElementById('create_account_form_submit');
+var login_btn = document.getElementById('login_btn');
+
+console.log(login_btn);
 
 
-console.log(create_account_btn);
+login_btn.onclick = function() {
+    
+    var request = new XMLHttpRequest();
 
+  request.onreadystatechange = function() {
+
+    if(request.readystate === XMLHttpRequest.DONE){
+      if(request.status === 200){
+          alert("Logged In!");
+      } else {
+        alert("Some Internal Error Occured!\nPlease Try Again Later!");
+      }
+    }
+  };
+
+  var username = document.getElementById('the_uname_login').value;
+  var password  = document.getElementById('the_passwd_login').value;
+
+  console.log(password);
+  console.log(userName);
+
+  request.open('POST', 'http://arunavadw.imad.hasura-app.io/login', true);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send(JSON.stringify({username: userName,
+                              password: password}));
+};
 
 
 create_account_btn.onclick = function() {
