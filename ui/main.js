@@ -19,7 +19,7 @@ login_btn.onclick = function() {
     }
   };
 
-  var username = document.getElementById('the_uname_login').value;
+  var userName = document.getElementById('the_uname_login').value;
   var password  = document.getElementById('the_passwd_login').value;
 
   console.log(password);
