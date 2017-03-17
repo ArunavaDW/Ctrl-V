@@ -188,7 +188,7 @@ app.post('/login', function(req, res){
     var username = req.body.username;
     var password = req.body.password;
     
-    console.log(username);
+    console.log(username+"kl");
     
     pool.query('SELECT * FROM "ctrlvusers" WHERE username = $1', [username], function(err, res) {
         
