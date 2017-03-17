@@ -190,7 +190,7 @@ app.post('/login', function(req, res){
     
     console.log(username+"kl");
     
-    pool.query('SELECT * FROM ctrlvusers WHERE username = $1', [username], function(err, res) {
+    pool.query('SELECT * FROM "ctrlvusers" WHERE "username" = $1', [username], function(err, res) {
         
         if (err) {
           res.status(500).send(err.toString());
