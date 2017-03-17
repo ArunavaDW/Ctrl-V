@@ -18,17 +18,14 @@ var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 
-function createProfileTemplate() {
-    var profileTemplate = `
+function errorTemplate(errorMessage){
     
+    var errorTemplate = `
     <!DOCTYPE html>
     <html lang="en-US">
     
     <head>
-      <!-- Page Colors
-            #9143c8 -> Purple
-            #06a209 -> Green
-          -->
+
       <title>Ctrl+V</title>
       <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
     
@@ -44,7 +41,7 @@ function createProfileTemplate() {
     
     <body class="the_body">
     
-      <div id="theNavigationBar">
+    <div id="theNavigationBar">
         <ul>
           <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
           <br/>
@@ -54,39 +51,109 @@ function createProfileTemplate() {
           <li class="navBarOptions"><a href="">Browse</a></li>
         </ul>
       </div>
-    
-      <div class="center_wrap">
-        <div id="identifier_main">
-          <div class="identifier_1">
-            <img id="theProfilePicture" src="blank-profile-picture.png" alt="Profile Picture"
-            width="130" height="130" class="profile_picture" />
-          </div>
-          <div class="identifier_1">
-            <div>
-              <h1 id="theFName">Arunava</h1>
-            </div>
-            <div>
-              <p id="theUserBio">This User has no Bio</p>
-            </div>
-          </div>
-        </div>
-        <div id="identifier_next">
-          <div>
-            <h2 id="ctrlvHitsHeader">Ctrl+V Hits:</h2><span id="ctrlvHits">0<span>
-          </div>
-          <div id="identifier_show_ctrlv">
-            <div>
-              <h2>Ctrl+V by you:</h2>
-            </div>
-            <div id="ctrlvhitsbox">
-            </div>
-          </div>
-        </div>
+      
+      <div class="atCenter">
+      <h3>${errorMessage}</h3>
       </div>
-    </body>
     
+    </body>
     </html>
+    
     `;
+}
+
+
+
+function createProfileTemplate(username) {
+    
+    pool.query('SELECT * FROM "ctrlvusers" WHERE username = $1', [username], function (err, result) {
+        
+        if(err){
+            res.status(500).send(err.toString());
+        } else {
+            
+            if(result.rows.length === 0){
+                
+                res.send(errorTemplate("Invalid Username/Password!"));
+            } else {
+            
+            queryResult = result.rows[0];
+            firstName = queryResult.firstname;
+            userBio = queryResult.bio;
+            if(userBio === null){
+                userBio = "This user likes to keep an Air of Mystery around him";
+            }
+            ctrlvHits = queryResult.ctrlvhits;
+            
+            
+            var profileTemplate = `
+    
+                <!DOCTYPE html>
+                <html lang="en-US">
+                
+                <head>
+            
+                  <title>Ctrl+V</title>
+                  <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
+                
+                  <meta charset="utf-8">
+                  <meta name="description" content="A place where one could paste documents and
+                  access it from any where in the web">
+                  <meta name="keywords" content="ctrl, v, paste, clipboard, online">
+                  <meta name="author" content="Arunava Chakraborty">
+                  <meta name="viewport" content="width=device-width initial-scale=2.0">
+                
+                  <link rel="stylesheet" href="style.css">
+                </head>
+                
+                <body class="the_body">
+                
+                  <div id="theNavigationBar">
+                    <ul>
+                      <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
+                      <br/>
+                      <li class="navBarOptions"><a href="">Main</a></li>
+                      <li class="navBarOptions"><a href="">New Paste</a></li>
+                      <li class="navBarOptions"><a href="">Edit Profile</a></li>
+                      <li class="navBarOptions"><a href="">Browse</a></li>
+                    </ul>
+                  </div>
+                
+                  <div class="center_wrap">
+                    <div id="identifier_main">
+                      <div class="identifier_1">
+                        <img id="theProfilePicture" src="blank-profile-picture.png" alt="Profile Picture"
+                        width="130" height="130" class="profile_picture" />
+                      </div>
+                      <div class="identifier_1">
+                        <div>
+                          <h1 id="theFName">${firstName}</h1>
+                        </div>
+                        <div>
+                          <p id="theUserBio">${userBio}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="identifier_next">
+                      <div>
+                        <h2 id="ctrlvHitsHeader">Ctrl+V Hits:</h2><span id="ctrlvHits">${ctrlvHits}<span>
+                      </div>
+                      <div id="identifier_show_ctrlv">
+                        <div>
+                          <h2>Ctrl+V by you:</h2>
+                        </div>
+                        <div id="ctrlvhitsbox">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </body>
+                
+                </html>`;
+            }
+        }
+    });
+    }
 }
 
 
@@ -174,6 +241,7 @@ app.post('/create_account', function(req, res){
                       res.status(500).send(err.toString());
                     } else {
                       res.send("Successfully Created User!");
+                      res.send(createProfileTemplate(username));
                     }
                   });
 });
