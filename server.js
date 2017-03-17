@@ -212,6 +212,8 @@ app.post('/login', function(req, res){
                     
                     res.send('credentials correct!');
                     
+                  } else {
+                      res.send('credentials incorrect!');
                   }
               }
         }
