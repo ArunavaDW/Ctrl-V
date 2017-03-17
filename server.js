@@ -164,7 +164,7 @@ app.post('/create_account', function(req, res){
   var unEncryptedPassword = req.body.password;
   
   var salt = crypto.randomBytes(128).toString('hex');
-  var password = hash(password, salt);
+  var password = hash(unEncryptedPassword, salt);
 
   pool.query('INSERT INTO "ctrlvusers" (username, email, firstname, lastname, password) VALUES ($1, $2, $3, $4, $5)', 
             [username, email, firstName, lastName, password], 
