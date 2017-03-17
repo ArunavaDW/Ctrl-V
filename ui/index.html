@@ -95,22 +95,21 @@
       .style.display='none'" class="theCloseButton"
       title="Close">&times;</span>
 
-      <form action="/action.php">
         <div class="create_account_box">
 
           <label><b>Username</b></label>
-          <input type="text" placeholder="Username" name="uname" required>
+          <input type="text" placeholder="Username" name="uname" id="the_uname_login" required>
           <br/><br/>
 
           <label><b>Password</b></label>
-          <input type="password" placeholder="Password" name="p_asswd" required>
+          <input type="password" placeholder="Password" name="p_asswd" id="the_passwd_login" required>
           <br/><br/>
 
           <hr/>
 
-          <button type="submit">Login</button>
+          <button id="login_btn" type="submit">Login</button>
         </div>
-      </form>
+        
     </div>
   </div>
   
