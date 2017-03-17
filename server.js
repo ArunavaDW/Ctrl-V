@@ -154,7 +154,6 @@ function createProfileTemplate(username) {
         }
     });
     }
-}
 
 
 app.get('/ctrlVUsers-db', function (req, res) {
