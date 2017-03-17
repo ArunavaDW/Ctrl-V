@@ -14,6 +14,9 @@ var config = {
     password: process.env.DB_PASSWORD
 };
 
+var app = express();
+app.use(morgan('combined'));
+app.use(bodyParser.json());
 
 function createProfileTemplate() {
     var profileTemplate = `
@@ -85,10 +88,6 @@ function createProfileTemplate() {
     </html>
     `;
 }
-
-var app = express();
-app.use(morgan('combined'));
-app.use(bodyParser.json());
 
 
 app.get('/ctrlVUsers-db', function (req, res) {
