@@ -24,7 +24,7 @@ create_paste_btn.onclick = function() {
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify({PasteBody: pasteBody,
                               PasteTitle: pasteTitle,
-                              PasteAuthor: pasteAuthor
+                              PasteAuthor: pasteAuthor,
                               PasteTime:   pasteTime}));
 };
 
