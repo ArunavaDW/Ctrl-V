@@ -60,6 +60,8 @@ function errorTemplate(errorMessage){
     </html>
     
     `;
+    
+    return errorTemplate;
 }
 
 
@@ -150,6 +152,8 @@ function createProfileTemplate(username) {
                 </body>
                 
                 </html>`;
+                
+                return profileTemplate;
             }
         }
     });
