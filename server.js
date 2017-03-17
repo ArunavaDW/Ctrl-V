@@ -239,7 +239,7 @@ app.post('/create_account', function(req, res){
                     if (err){
                       res.status(500).send(err.toString());
                     } else {
-                      res.send("Successfully Created User!");
+                      //res.send("Successfully Created User!");
                       res.send(createProfileTemplate(username));
                     }
                   });
