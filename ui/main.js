@@ -2,6 +2,8 @@ var create_account_btn = document.getElementById('create_account_form_submit');
 var create_paste_btn = document.getElementById('create_paste_submit');
 
 console.log(create_account_btn);
+console.log(create_paste_btn);
+
 create_paste_btn.onclick = function() {
   var request = new XMLHttpRequest();
   request.onreadystatechange = function() {
