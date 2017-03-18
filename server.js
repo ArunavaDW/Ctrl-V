@@ -45,7 +45,6 @@ app.get('/', function (req, res) {
        });
        
    } else {
-       console.log('We are here5');
        res.sendFile(path.join(__dirname, 'ui', 'index.html'));
    }
   
