@@ -35,17 +35,15 @@ app.get('/', function (req, res) {
     
     console.log('We are here');
     if (req.session && req.session.auth && req.session.auth.userId) {
-       // Load the user object
-       console.log('We are here2');
+       
        pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
            if (err) {
               res.status(500).send(err.toString());
-              console.log('We are here3');
            } else {
               res.send(errorTemplate(result.rows[0].username));
-              console.log('We are here4');
            }
        });
+       
    } else {
        console.log('We are here5');
        res.sendFile(path.join(__dirname, 'ui', 'index.html'));
