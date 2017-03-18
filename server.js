@@ -150,7 +150,7 @@ function createProfileTemplate(userData) {
           <div class="center_wrap">
             <div id="identifier_main">
               <div class="identifier_1">
-                <img id="theProfilePicture" src="blank-profile-picture.png" alt="Profile Picture"
+                <img id="theProfilePicture" src="/ui/blank-profile-picture.png" alt="Profile Picture"
                 width="130" height="130" class="profile_picture" />
               </div>
               <div class="identifier_1">
