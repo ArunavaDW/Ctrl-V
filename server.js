@@ -211,7 +211,7 @@ app.post('/login', function(req, res){
                     res.send(createProfileTemplate(username));
                     
                   } else {
-                      res.send(errorTemplate("Username/Password Invalid!"));
+                      res.render(errorTemplate("Username/Password Invalid!"));
                   }
               }
         }
