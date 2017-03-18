@@ -96,9 +96,7 @@ function errorTemplate(errorMessage){
       </div>
     
     </body>
-    </html>
-    
-    `;
+    </html>`;
     
     return errorTemplate;
 }
@@ -205,7 +203,7 @@ app.post('/login', function(req, res){
                     // internally, on the server side, it maps the session id to an object
                     // { auth: {userId }}
                     
-                    res.send("createProfileTemplate(result.rows[0])");
+                    res.send("createProfileTemplate");
                     
                   } else {
                       res.send(errorTemplate("Username/Password Invalid!"));
