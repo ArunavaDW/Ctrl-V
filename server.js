@@ -208,10 +208,10 @@ app.post('/login', function(req, res){
                     // internally, on the server side, it maps the session id to an object
                     // { auth: {userId }}
                     
-                    res.send('credentials correct!');
+                    res.send(createProfileTemplate(username));
                     
                   } else {
-                      res.send('credentials incorrect!');
+                      res.send(errorTemplate("Username/Password Invalid!"));
                   }
               }
         }
