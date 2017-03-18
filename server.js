@@ -107,7 +107,7 @@ function errorTemplate(errorMessage){
 
 function createProfileTemplate(username) {
     
-    pool.query('SELECT * FROM "ctrlvusers" WHERE username = $1', [username], function (err, result) {
+    pool.query('SELECT * FROM "ctrlvusers" WHERE "username" = $1', [username], function (err, result) {
         
         if(err){
             res.status(500).send(err.toString());
