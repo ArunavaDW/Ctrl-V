@@ -234,8 +234,6 @@ app.post('/login', function(req, res, next){
 });
 });
 
-app.use()
-
 app.get('/logout', function (req, res) {
    delete req.session.auth;
    res.send(errorTemplate("You are now Logged out!"));
