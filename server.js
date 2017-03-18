@@ -60,7 +60,7 @@ function errorTemplate(errorMessage){
       <meta name="author" content="Arunava Chakraborty">
       <meta name="viewport" content="width=device-width initial-scale=2.0">
     
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="/ui/style.css">
     </head>
     
     <body class="the_body">
