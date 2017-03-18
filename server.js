@@ -32,7 +32,19 @@ app.get('/ctrlVUsers-db', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+    
+    if (req.session && req.session.auth && req.session.auth.userId) {
+       // Load the user object
+       pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
+           if (err) {
+              res.status(500).send(err.toString());
+           } else {
+              res.send(errorTemplate(result.rows[0].username));
+           }
+       });
+   } else {
+       res.status(400).send('You are not logged in');
+   }
 });
 
 app.get('/ui/:fileName', function (req, res) {
@@ -183,7 +195,7 @@ function createProfileTemplate(username) {
     });
     }
 
-app.post('/login', function(req, res){
+app.post('/login', function(req, res, next){
     
     var username = req.body.username;
     var password = req.body.password;
@@ -217,6 +229,8 @@ app.post('/login', function(req, res){
         }
 });
 });
+
+app.use()
 
 app.get('/logout', function (req, res) {
    delete req.session.auth;
