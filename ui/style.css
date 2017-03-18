@@ -63,6 +63,10 @@ li {
   float: left;
 }
 
+.goRight {
+    float: right;
+}
+
 .justMargin {
   margin: 20px;
 }
