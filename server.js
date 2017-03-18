@@ -110,9 +110,6 @@ function createProfileTemplate(userData) {
         userBio = "This user likes to keep an Air of Mystery around him";
     }
     var ctrlvHits = userData.ctrlvhits;
-    if(ctrvHits === undefined){
-        ctrlvHits = 0;
-    }
     
     
     var profileTemplate = `
