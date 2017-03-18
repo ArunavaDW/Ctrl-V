@@ -106,12 +106,12 @@ function errorTemplate(errorMessage){
 
 
 function createProfileTemplate(userData) {
-    firstName = userData.firstname;
-    userBio = userData.bio;
+    var firstName = userData.firstname;
+    var userBio = userData.bio;
     if(userBio === null){
         userBio = "This user likes to keep an Air of Mystery around him";
     }
-    ctrlvHits = userData.ctrlvhits;
+    var ctrlvHits = userData.ctrlvhits;
     if(ctrvHits === undefined){
         ctrlvHits = 0;
     }
