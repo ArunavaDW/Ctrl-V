@@ -134,7 +134,7 @@ function createProfileTemplate(userData) {
               <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
               <br/>
               <li class="navBarOptions"><a href="/">Main</a></li>
-              <li class="navBarOptions"><a href="/thePaste.html">New Paste</a></li>
+              <li class="navBarOptions"><a href="/ui/thePaste.html">New Paste</a></li>
               <li class="navBarOptions"><a href="">Edit Profile</a></li>
               <li class="navBarOptions"><a href="">Browse</a></li>
               <li class="goRight"><a href="/logout">Log Out</a></li>
