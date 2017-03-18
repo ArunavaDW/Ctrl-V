@@ -107,7 +107,7 @@ function createProfileTemplate(userData) {
     var firstName = userData.firstname;
     var userBio = userData.bio;
     if(userBio === null){
-        userBio = "This user likes to keep an Air of Mystery around him";
+        userBio = "This user has no Bio";
     }
     var ctrlvHits = userData.ctrlvhits;
     
