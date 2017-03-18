@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
            if (err) {
               res.status(500).send(err.toString());
            } else {
-              res.send(errorTemplate(result.rows[0].username));
+              res.send(createProfileTemplate(result.rows[0].username));
            }
        });
        
