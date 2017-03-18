@@ -205,7 +205,7 @@ app.post('/login', function(req, res){
                     // internally, on the server side, it maps the session id to an object
                     // { auth: {userId }}
                     
-                    res.send(createProfileTemplate(username));
+                    res.send(createProfileTemplate(result.rows[0]));
                     
                   } else {
                       res.send(errorTemplate("Username/Password Invalid!"));
