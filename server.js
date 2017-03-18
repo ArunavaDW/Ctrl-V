@@ -43,8 +43,9 @@ app.get('/', function (req, res) {
            }
        });
    } else {
-       res.status(400).send('You are not logged in');
+       res.sendFile(path.join(__dirname, 'ui', 'index.html'));
    }
+  
 });
 
 app.get('/ui/:fileName', function (req, res) {
