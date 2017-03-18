@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
            if (err) {
               res.status(500).send(err.toString());
            } else {
-              res.send(createProfileTemplate(result.rows[0].username));
+              res.send(createProfileTemplate(result.rows[0]));
            }
        });
        
@@ -105,97 +105,81 @@ function errorTemplate(errorMessage){
 
 
 
-function createProfileTemplate(username) {
+function createProfileTemplate(userData) {
+    firstName = userData.firstname;
+    userBio = userData.bio;
+    if(userBio === null){
+        userBio = "This user likes to keep an Air of Mystery around him";
+    }
+    ctrlvHits = userData.ctrlvhits;
     
-    pool.query('SELECT * FROM "ctrlvusers" WHERE "username" = $1', [username], function (err, result) {
+    
+    var profileTemplate = `
+
+        <!DOCTYPE html>
+        <html lang="en-US">
         
-        if(err){
-            res.status(500).send(err.toString());
-        } else {
-            
-            if(result.rows.length === 0){
-                
-                res.send(errorTemplate("Invalid Username/Password!"));
-            } else {
-            
-            queryResult = result.rows[0];
-            firstName = queryResult.firstname;
-            userBio = queryResult.bio;
-            if(userBio === null){
-                userBio = "This user likes to keep an Air of Mystery around him";
-            }
-            ctrlvHits = queryResult.ctrlvhits;
-            
-            
-            var profileTemplate = `
+        <head>
     
-                <!DOCTYPE html>
-                <html lang="en-US">
-                
-                <head>
-            
-                  <title>Ctrl+V</title>
-                  <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
-                
-                  <meta charset="utf-8">
-                  <meta name="description" content="A place where one could paste documents and
-                  access it from any where in the web">
-                  <meta name="keywords" content="ctrl, v, paste, clipboard, online">
-                  <meta name="author" content="Arunava Chakraborty">
-                  <meta name="viewport" content="width=device-width initial-scale=2.0">
-                
-                  <link rel="stylesheet" href="style.css">
-                </head>
-                
-                <body class="the_body">
-                
-                  <div id="theNavigationBar">
-                    <ul>
-                      <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
-                      <br/>
-                      <li class="navBarOptions"><a href="">Main</a></li>
-                      <li class="navBarOptions"><a href="">New Paste</a></li>
-                      <li class="navBarOptions"><a href="">Edit Profile</a></li>
-                      <li class="navBarOptions"><a href="">Browse</a></li>
-                    </ul>
-                  </div>
-                
-                  <div class="center_wrap">
-                    <div id="identifier_main">
-                      <div class="identifier_1">
-                        <img id="theProfilePicture" src="blank-profile-picture.png" alt="Profile Picture"
-                        width="130" height="130" class="profile_picture" />
-                      </div>
-                      <div class="identifier_1">
-                        <div>
-                          <h1 id="theFName">${firstName}</h1>
-                        </div>
-                        <div>
-                          <p id="theUserBio">${userBio}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="identifier_next">
-                      <div>
-                        <h2 id="ctrlvHitsHeader">Ctrl+V Hits:</h2><span id="ctrlvHits">${ctrlvHits}<span>
-                      </div>
-                      <div id="identifier_show_ctrlv">
-                        <div>
-                          <h2>Ctrl+V by you:</h2>
-                        </div>
-                        <div id="ctrlvhitsbox">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </body>
-                
-                </html>`;
-                
-                return profileTemplate;
-            }
-        }
-    });
+          <title>Ctrl+V</title>
+          <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
+        
+          <meta charset="utf-8">
+          <meta name="description" content="A place where one could paste documents and
+          access it from any where in the web">
+          <meta name="keywords" content="ctrl, v, paste, clipboard, online">
+          <meta name="author" content="Arunava Chakraborty">
+          <meta name="viewport" content="width=device-width initial-scale=2.0">
+        
+          <link rel="stylesheet" href="style.css">
+        </head>
+        
+        <body class="the_body">
+        
+          <div id="theNavigationBar">
+            <ul>
+              <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
+              <br/>
+              <li class="navBarOptions"><a href="">Main</a></li>
+              <li class="navBarOptions"><a href="">New Paste</a></li>
+              <li class="navBarOptions"><a href="">Edit Profile</a></li>
+              <li class="navBarOptions"><a href="">Browse</a></li>
+            </ul>
+          </div>
+        
+          <div class="center_wrap">
+            <div id="identifier_main">
+              <div class="identifier_1">
+                <img id="theProfilePicture" src="blank-profile-picture.png" alt="Profile Picture"
+                width="130" height="130" class="profile_picture" />
+              </div>
+              <div class="identifier_1">
+                <div>
+                  <h1 id="theFName">${firstName}</h1>
+                </div>
+                <div>
+                  <p id="theUserBio">${userBio}</p>
+                </div>
+              </div>
+            </div>
+            <div id="identifier_next">
+              <div>
+                <h2 id="ctrlvHitsHeader">Ctrl+V Hits:</h2><span id="ctrlvHits">${ctrlvHits}<span>
+              </div>
+              <div id="identifier_show_ctrlv">
+                <div>
+                  <h2>Ctrl+V by you:</h2>
+                </div>
+                <div id="ctrlvhitsbox">
+                </div>
+              </div>
+            </div>
+          </div>
+        </body>
+        
+        </html>`;
+        
+        return profileTemplate;
     }
 
 app.post('/login', function(req, res){
