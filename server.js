@@ -54,7 +54,7 @@ app.get('/ui/:fileName', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
 });
 
-app.get('/ui/:pasteLink', function (req, res) {
+app.get('/pastes/:pasteLink', function (req, res) {
   pool.query('SELECT * FROM "pastes" WHERE paste_link = $1', [req.params.pasteLink], function(err, result){
       
       if (err) {
