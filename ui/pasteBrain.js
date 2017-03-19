@@ -19,8 +19,10 @@ create_paste_btn.onclick = function() {
   var pasteTitle = document.getElementById('paste_title').value;
   var pasteAuthor = document.getElementById('paste_as').value;
   var pasteTime = new Date();
+  
+  console.log(pasteTime);
 
-  request.open('POST', 'http://arunavadw.imad.hasura-app.io/create_paste', true);
+  request.open('POST', 'http://arunavadw.imad.hasura-app.io/create-paste', true);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify({PasteBody: pasteBody,
                               PasteTitle: pasteTitle,
