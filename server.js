@@ -103,7 +103,6 @@ function createPasteTemplate(pasteData){
     var body = pasteData.paste_body;
     var link = pasteData.paste_link;
     var title = pasteData.paste_title;
-    console.log(body);
     
     var pasteTemplate = `
     <!DOCTYPE html>
