@@ -155,6 +155,8 @@ function createPasteTemplate(pasteData){
     </body>
     </html>
     `;
+    
+    return pasteTemplate
 }
 
 
