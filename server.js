@@ -144,6 +144,9 @@ function createPasteTemplate(pasteData){
       <div>
       <h5>${author}</h5>
       </div>
+      <div>
+      <h6>${time.toDateString()}</h6>
+      </div>
 
       </div>
       <div class="getComfortable">
