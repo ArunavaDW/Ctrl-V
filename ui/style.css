@@ -159,6 +159,7 @@ textarea {
 
 .toLeft{
     float: left;
+    display: inline-block;
 }
 
 .profile_picture {
@@ -222,6 +223,20 @@ textarea {
   background-color: #fff;
   position: relative;
   left: 480px;
+}
+
+.getComfortable {
+  margin: 20px 50px;
+  padding: 10px 20px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 35px;
+  max-width: 2500px;
+}
+
+.getSomeSpace{
+  margin: 20px 50px;
+  padding: 10px 20px;
 }
 
 .modal_content {
