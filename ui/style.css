@@ -157,6 +157,10 @@ textarea {
   margin: 0;
 }
 
+.toLeft{
+    float: left;
+}
+
 .profile_picture {
   display: block;
   border-radius: 60px;
