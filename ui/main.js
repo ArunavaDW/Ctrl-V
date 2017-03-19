@@ -1,10 +1,15 @@
 var create_account_btn = document.getElementById('create_account_form_submit');
 var login_btn = document.getElementById('login_btn');
+var loader = document.getElementsByClassName('loader');
+
+console.log(loader);
 
 console.log(login_btn);
 
 
 login_btn.onclick = function() {
+    
+    loader[1].style.display = "inline-block";
     
     var request = new XMLHttpRequest();
 
@@ -33,7 +38,8 @@ login_btn.onclick = function() {
 
 
 create_account_btn.onclick = function() {
-
+  
+  loader[0].style.display = "inline-block";
   var request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
