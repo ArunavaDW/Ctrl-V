@@ -50,26 +50,6 @@ app.get('/', function (req, res) {
   
 });
 
-app.get('/ui/:fileName', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
-});
-
-app.get('/pastes/:pasteLink', function (req, res) {
-  pool.query('SELECT * FROM "pastes" WHERE paste_link = $1', [req.params.pasteLink], function(err, result){
-      
-      if (err) {
-          res.status(500).send(err.toString());
-        } else {
-              if (result.rows.length === 0) {
-                  res.status(403).send(errorTemplate("Paste Link Invalid!"));
-              } else {
-                  res.send(createPasteTemplate(result.rows[0]));
-              }
-              }
-        
-  });
-});
-
 var pool = new Pool(config);
 
 
@@ -250,6 +230,26 @@ function createProfileTemplate(userData) {
         
         return profileTemplate;
     }
+
+app.get('/ui/:fileName', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
+});
+
+app.get('/pastes/:pasteLink', function (req, res) {
+  pool.query('SELECT * FROM "pastes" WHERE paste_link = $1', [req.params.pasteLink], function(err, result){
+      
+      if (err) {
+          res.status(500).send(err.toString());
+        } else {
+              if (result.rows.length === 0) {
+                  res.status(403).send(errorTemplate("Paste Link Invalid!"));
+              } else {
+                  res.send(createPasteTemplate(result.rows[0]));
+              }
+              }
+        
+  });
+});
 
 app.post('/login', function(req, res){
     
