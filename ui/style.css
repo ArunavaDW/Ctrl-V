@@ -27,6 +27,7 @@
 
 .showAsFormatted p{
     word-wrap: break-word;
+    white-space: pre-line;
 }
 
 .the_box {
