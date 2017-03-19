@@ -54,6 +54,22 @@ app.get('/ui/:fileName', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
 });
 
+app.get('/ui/:pasteLink', function (req, res) {
+  pool.query('SELECT * FROM "pastes" WHERE paste_link = $1', [req.params.pasteLink], function(err, result){
+      
+      if (err) {
+          res.status(500).send(err.toString());
+        } else {
+              if (result.rows.length === 0) {
+                  res.status(403).send(errorTemplate("Paste Link Invalid!"));
+              } else {
+                  res.send(createPasteTemplate(result.rows[0]));
+              }
+              }
+        
+  });
+});
+
 var pool = new Pool(config);
 
 
@@ -101,6 +117,62 @@ function errorTemplate(errorMessage){
     return errorTemplate;
 }
 
+function createPasteTemplate(pasteData){
+    var author = pasteData.paste_author;
+    var time = pasteData.paste_time;
+    var body = pasteData.paste_body;
+    var link = pasteData.paste_link;
+    var title = pasteData.paste_title;
+    
+    var pasteTemplate = `
+    <!DOCTYPE html>
+    <html lang="en-US">
+    
+    <head>
+
+      <title>Ctrl+V</title>
+      <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
+    
+      <meta charset="utf-8">
+      <meta name="description" content="A place where one could paste documents and
+      access it from any where in the web">
+      <meta name="keywords" content="ctrl, v, paste, clipboard, online">
+      <meta name="author" content="Arunava Chakraborty">
+      <meta name="viewport" content="width=device-width initial-scale=2.0">
+    
+      <link rel="stylesheet" href="/ui/style.css">
+    </head>
+    
+    <body class="the_body">
+    
+    <div id="theNavigationBar">
+        <ul>
+          <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
+          <br/>
+          <li class="navBarOptions"><a href="/">Main</a></li>
+          <li class="navBarOptions"><a href="/thePaste.html">New Paste</a></li>
+          <li class="navBarOptions"><a href="">Edit Profile</a></li>
+          <li class="navBarOptions"><a href="">Browse</a></li>
+        </ul>
+      </div>
+      
+      <div class="atCenter">
+      <div class="toLeft">
+      <h3>${title}</h3>
+      </div>
+      <div>
+      <h2>${author}</h2>
+      </div>
+      <div>
+      <p>${body}</p>
+      </div>
+      
+      </div>
+    
+    </body>
+    </html>
+    `;
+}
 
 
 function createProfileTemplate(userData) {
