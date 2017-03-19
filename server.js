@@ -169,7 +169,9 @@ function createProfileTemplate(userData) {
         userBio = "This user has no Bio";
     }
     var ctrlvHits = userData.ctrlvhits;
-    
+    if(ctrlvHits === null){
+        ctrlvHits = 0;
+    }
     
     var profileTemplate = `
         <!DOCTYPE html>
