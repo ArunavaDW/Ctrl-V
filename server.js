@@ -149,7 +149,7 @@ function createPasteTemplate(pasteData){
 
       </div>
       <div class="getComfortable">
-      <p>${body}</p>
+      <p class="showAsFormatted">${body}</p>
       </div>
       </div>
     </body>
