@@ -240,7 +240,7 @@ app.post('/create-paste', function(req, res){
     var pasteTime = req.body.PasteTime;
     var pasteLink = crypto.randomBytes(8).toString('hex');
     
-    pool.query('INSERT INTO "pastes" (paste_username, paste_title, paste_time, paste_link, paste_body) VALUES ($1, $2, $3, $4, $5)', 
+    pool.query('INSERT INTO "pastes" (paste_author, paste_title, paste_time, paste_link, paste_body) VALUES ($1, $2, $3, $4, $5)', 
     [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody], function(err, result) {
         
         if(err){
