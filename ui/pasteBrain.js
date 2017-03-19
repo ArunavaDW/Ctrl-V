@@ -18,7 +18,15 @@ create_paste_btn.onclick = function() {
   var pasteBody = document.getElementById('main_paste').value;
   var pasteTitle = document.getElementById('paste_title').value;
   var pasteAuthor = document.getElementById('paste_as').value;
-  console.log(pasteTitle);
+  
+  if(pasteTitle === ""){
+      pasteTitle = "Untitled";
+  }
+  
+  if(pasteAuthor === ""){
+      pasteAuthor = "Anonymous";
+  }
+  
   var pasteTime = new Date();
   
   console.log(pasteTime);
