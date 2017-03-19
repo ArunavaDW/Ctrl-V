@@ -157,11 +157,14 @@ function createPasteTemplate(pasteData){
       </div>
       
       <div class="atCenter">
+      
+      <div>
       <div class="toLeft">
       <h3>${title}</h3>
       </div>
-      <div>
+      <div class="toLeft">
       <h2>${author}</h2>
+      </div>
       </div>
       <div>
       <p>${body}</p>
