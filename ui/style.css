@@ -357,7 +357,7 @@ label{
 }
 
 .loader {
-  display: inline-block;
+  display: none;
   border: 6px solid #f3f3f3;
   border-radius: 50%;
   border-top: 6px solid #3498db;
