@@ -294,7 +294,7 @@ app.post('/login', function(req, res){
 
 app.get('/logout', function (req, res) {
    delete req.session.auth;
-   res.send(errorTemplate("You are now Logged out!"));
+   res.send(errorTemplate("You are now Logged out!\nHope to See you Soon!"));
 });
 
 
@@ -309,7 +309,7 @@ app.get('/check-login', function (req, res) {
            }
        });
    } else {
-       res.status(400).send('You are not logged in\nHope to See you Soon!');
+       res.status(400).send('You are not logged in');
    }
 });
 
