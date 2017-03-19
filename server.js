@@ -240,40 +240,16 @@ app.post('/create-paste', function(req, res){
     var pasteTime = req.body.PasteTime;
     var pasteLink = crypto.randomBytes(8).toString('hex');
     
-    /*PasteBody: pasteBody,
-                              PasteTitle: pasteTitle,
-                              PasteAuthor: pasteAuthor,
-                              PasteTime:   pasteTime}));*/
-    
     pool.query('INSERT INTO "pastes" (paste_username, paste_title, paste_time, paste_link, paste_body) VALUES ($1, $2, $3, $4, $5)', 
-                                            [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody], function(err, result) {
+    [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody], function(err, result) {
         
-        if (err) {
-          res.status(500).send(err.toString());
+        if(err){
+            res.status(500).send(err.toString());
         } else {
-              if (result.rows.length === 0) {
-                  res.status(403).send('username/password is invalid');
-              } else {
-                  // Match the password
-                  var dbString = result.rows[0].password;
-                  var salt = dbString.split('$')[2];
-                  var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the original salt
-                  if (hashedPassword === dbString) {
-                    
-                    // Set the session
-                    req.session.auth = {userId: result.rows[0].id};
-                    // set cookie with a session id
-                    // internally, on the server side, it maps the session id to an object
-                    // { auth: {userId }}
-                    
-                    res.send("createProfileTemplate");
-                    
-                  } else {
-                      res.send(errorTemplate("Username/Password Invalid!"));
-                  }
-              }
+            res.redirect('/');
         }
-});
+        });
+
 });
 
 function hash (input, salt) {
