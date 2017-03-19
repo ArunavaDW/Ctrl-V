@@ -107,24 +107,24 @@ function createPasteTemplate(pasteData){
     var pasteTemplate = `
     <!DOCTYPE html>
     <html lang="en-US">
-    
+
     <head>
 
       <title>Ctrl+V</title>
       <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
-    
+
       <meta charset="utf-8">
       <meta name="description" content="A place where one could paste documents and
       access it from any where in the web">
       <meta name="keywords" content="ctrl, v, paste, clipboard, online">
       <meta name="author" content="Arunava Chakraborty">
       <meta name="viewport" content="width=device-width initial-scale=2.0">
-    
-      <link rel="stylesheet" href="/ui/style.css">
+
+      <link rel="stylesheet" href="style.css">
     </head>
-    
+
     <body class="the_body">
-    
+
     <div id="theNavigationBar">
         <ul>
           <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
@@ -135,25 +135,25 @@ function createPasteTemplate(pasteData){
           <li class="navBarOptions"><a href="">Browse</a></li>
         </ul>
       </div>
-      
-      <div class="center_wrap">
-      
+
       <div>
-      <div class="toLeft">
-      <h3>${title}</h3>
+
+      <div class="getSomeSpace">
+      <div>
+      <h2>${title}</h2>
       </div>
-      <div class="toLeft">
-      <h2>${author}</h2>
+      <div>
+      <h5>${author}</h5>
       </div>
+
       </div>
-      <div class="atCenter">
+      <div class="getComfortable">
       <p>${body}</p>
       </div>
-      
       </div>
-    
     </body>
     </html>
+
     `;
     
     return pasteTemplate;
