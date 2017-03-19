@@ -82,7 +82,6 @@ function errorTemplate(errorMessage){
           <br/>
           <li class="navBarOptions"><a href="/">Main</a></li>
           <li class="navBarOptions"><a href="/thePaste.html">New Paste</a></li>
-          <li class="navBarOptions"><a href="">Edit Profile</a></li>
           <li class="navBarOptions"><a href="">Browse</a></li>
         </ul>
       </div>
