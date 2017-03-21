@@ -280,24 +280,24 @@ function errorTemplate(errorMessage){
     var errorTemplate = `
     <!DOCTYPE html>
     <html lang="en-US">
-    
+
     <head>
 
       <title>Ctrl+V</title>
       <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
-    
+
       <meta charset="utf-8">
       <meta name="description" content="A place where one could paste documents and
       access it from any where in the web">
       <meta name="keywords" content="ctrl, v, paste, clipboard, online">
       <meta name="author" content="Arunava Chakraborty">
       <meta name="viewport" content="width=device-width initial-scale=2.0">
-    
-      <link rel="stylesheet" href="/ui/style.css">
+
+      <link rel="stylesheet" href="style.css">
     </head>
-    
+
     <body class="the_body">
-    
+
     <div id="theNavigationBar">
         <ul>
           <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
@@ -307,15 +307,21 @@ function errorTemplate(errorMessage){
           <li class="navBarOptions"><a href="">Browse</a></li>
         </ul>
       </div>
-      
+
+      <div class="center_wrap">
+
       <div class="atCenter">
       <h3>${errorMessage}</h3>
       </div>
     
     <div class="topMargin1">${loginBlock}</div>
     
+    </div>
+    </div>
+    </div>
     </body>
-    </html>`;
+    </html>
+`;
     
     return errorTemplate;
 }
