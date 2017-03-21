@@ -327,6 +327,10 @@ label{
   margin: auto;
 }
 
+.topMargin1 {
+  margin-top: 20px;
+}
+
 .theCloseButton {
   position: relative;
   left: 635px;
