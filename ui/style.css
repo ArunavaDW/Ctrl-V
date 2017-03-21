@@ -306,6 +306,10 @@ label{
   padding-right: 10px;
 }
 
+copy-button {
+    display: inline;
+}
+
 .label_passwd_padding{
   padding-left: 35px;
   padding-right: 115px;
