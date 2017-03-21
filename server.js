@@ -6,6 +6,10 @@ var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+
+// Global Variables
+var LoggedIn = false;
+
 var config = {
     user: 'arunavadw',
     database: 'arunavadw',
@@ -26,6 +30,14 @@ app.set("views", path.resolve(__dirname, "ui/views"));
 app.set("view engine", "ejs");
 
 var pool = new Pool(config);
+
+app.use(function(request, response) {
+    if (req.session && req.session.auth && req.session.auth.userId) {
+       // Load the user object
+       GLOBAL.LoggedIn = true;
+       console.log("LoggedIn"+LoggedIn);
+   }
+});
 
 app.get('/ctrlVUsers-db', function (req, res) {
   
@@ -176,14 +188,91 @@ app.post('/create_account', function(req, res){
 });
 
 app.use(function(request, response){
-    response.statusCode = 404;
-    response.render("errorTemplate", {
-        message: "Page Not Found!"
-    });
+    response.end(errorTemplate("Page Not Found!"));
 });
 
 
-function errorTemplate34(errorMessage){
+function errorTemplate(errorMessage){
+    
+    if(){
+        
+    }
+    var toAdd = `
+    <div id="loginBlock">
+      <div class="the_footer_login_box">
+        <div class="justBoxIt">
+          <div>
+            <img id="theBlankProPic" src="/ui/blank-profile-picture.png" alt="Blank Profile Picture" height="100" width="100" />
+          </div>
+          <div>
+            <h4>Hello Guest</h4>
+          </div>
+          <div>
+            <div>
+              <button id="" type="submit" onclick="document.getElementById('create_account_form')
+              .style.display='block'">Sign Up</button>
+            </div>
+            <div>
+              <button id="" type="submit" onclick="document.getElementById('login_form')
+              .style.display='block'">Sign In</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Create Account form -->
+    <div id="create_account_form" class="modal_form">
+      <div class="the_login_box the_box animate">
+          <span onclick="document.getElementById('create_account_form')
+          .style.display='none'" class="theCloseButton"
+          title="Close">&times;</span>
+          <div class="create_account_box">
+            <label><b>First Name<sup>*</sup></b></label>
+            <input type="text" id="fname_create" placeholder="First Name" name="fname"
+             required autofocus>
+            <label><b>Last Name</b></label>
+            <input type="text" id="lname_create" placeholder="Last Name" name="lname">
+            <br/><br/><br/><br/>
+            <label><b>Email<sup>*</sup></b></label>
+            <input type="email" id="email_create" placeholder="Email" name="elec-mail" required>
+            <label class="label_uname_padding"><b>Username<sup>*</sup></b></label>
+            <input type="text" id="uname" placeholder="Username" name="u_name" required>
+            <br/><br/><br/><br/>
+            <label class="label_passwd_padding"><b>Password<sup>*</sup></b></label>
+            <input type="password" id="pwd_create" placeholder="Password" name="passwd" required>
+            <br/><br/><br/><br/>
+            <label><b>Confirm Password<sup>*</sup></b></label>
+            <input type="password" placeholder="Re-Type Password" name="c_passwd" required>
+             <br/><br/><br/><br/>
+            <hr/>
+            <button id="create_account_form_submit" type="submit">Create New Account</button>
+          </div>
+      </div>
+    </div>
+
+    <!-- The Login form -->
+    <div id="login_form" class="modal_form">
+      <div class="animate the_box the_login_box">
+        <span onclick="document.getElementById('login_form')
+        .style.display='none'" class="theCloseButton"
+        title="Close">&times;</span>
+        <form action="/action.php">
+          <div class="create_account_box">
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Username" name="uname" required>
+            <br/><br/>
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Password" name="p_asswd" required>
+            <br/><br/>
+            <hr/>
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+    `;
     
     var errorTemplate = `
     <!DOCTYPE html>
@@ -219,7 +308,7 @@ function errorTemplate34(errorMessage){
       <div class="atCenter">
       <h3>${errorMessage}</h3>
       </div>
-    
+    <div>$</div>
     </body>
     </html>`;
     
