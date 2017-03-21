@@ -377,6 +377,9 @@ function createPasteTemplate(pasteData){
       <div>
       <h6>${time}</h6>
       </div>
+      <div>
+      <h6>Paste Live At: http://arunavadw.imad.hasura-app.io/pastes/${link}</h6>
+      </div>
 
       </div>
       <div class="getComfortable">
