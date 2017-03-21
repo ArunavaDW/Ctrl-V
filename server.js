@@ -333,6 +333,7 @@ function createPasteTemplate(pasteData){
     var body = pasteData.paste_body;
     var link = pasteData.paste_link;
     var title = pasteData.paste_title;
+    var completeLink = "http://arunavadw.imad.hasura-app.io/pastes/"+link;
     
     var pasteTemplate = `
     <!DOCTYPE html>
@@ -380,7 +381,7 @@ function createPasteTemplate(pasteData){
       <h6>${time}</h6>
       </div>
       <div>
-      <h6><span class="aLilBold">Paste Live At:</span></h6> http://arunavadw.imad.hasura-app.io/pastes/${link}<copy-button target-element="http://arunavadw.imad.hasura-app.io/pastes/"${link}><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy" width="25"></copy-button>
+      <h6><span class="aLilBold">Paste Live At:</span></h6> http://arunavadw.imad.hasura-app.io/pastes/${link}<copy-button target-text=${completeLink}><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy" width="25"></copy-button>
       </div>
 
       </div>
