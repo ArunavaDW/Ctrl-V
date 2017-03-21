@@ -272,6 +272,7 @@ app.use(function(request, response){
 function errorTemplate(errorMessage){
     
     var loginBlock = GLOBAL.LoginBlock;
+    console.log(loginBlock);
     if(LoggedIn){
         loginBlock = ``;
     }
