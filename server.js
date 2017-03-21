@@ -14,13 +14,14 @@ var config = {
     password: process.env.DB_PASSWORD
 };
 
-var appp = express();
+var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(session({
     secret: 'someRandomSecretValue',
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 30}
 }));
+var pool = new Pool(config);
 
 app.get('/ctrlVUsers-db', function (req, res) {
   
@@ -50,7 +51,130 @@ app.get('/', function (req, res) {
   
 });
 
-var pool = new Pool(config);
+app.get('/ui/:fileName', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
+});
+
+app.get('/pastes/:pasteLink', function (req, res) {
+  pool.query('SELECT * FROM "pastes" WHERE paste_link = $1', [req.params.pasteLink], function(err, result){
+      
+      if (err) {
+          res.status(500).send(err.toString());
+        } else {
+              if (result.rows.length === 0) {
+                  res.status(403).send(errorTemplate("Paste Link Invalid!"));
+              } else {
+                  res.send(createPasteTemplate(result.rows[0]));
+              }
+              }
+        
+  });
+});
+
+app.post('/login', function(req, res){
+    
+    var username = req.body.username;
+    var password = req.body.password;
+    
+    pool.query('SELECT * FROM "ctrlvusers" WHERE "username" = $1', [username], function(err, result) {
+        
+        if (err) {
+          res.status(500).send(err.toString());
+        } else {
+              if (result.rows.length === 0) {
+                  res.status(403).send('username/password is invalid');
+              } else {
+                  // Match the password
+                  var dbString = result.rows[0].password;
+                  var salt = dbString.split('$')[2];
+                  var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the original salt
+                  if (hashedPassword === dbString) {
+                    
+                    // Set the session
+                    req.session.auth = {userId: result.rows[0].id};
+                    // set cookie with a session id
+                    // internally, on the server side, it maps the session id to an object
+                    // { auth: {userId }}
+                    
+                    res.redirect('/');
+                    
+                  } else {
+                      res.send(errorTemplate("Username/Password Invalid!"));
+                  }
+              }
+        }
+});
+});
+
+app.get('/logout', function (req, res) {
+   delete req.session.auth;
+   res.end(errorTemplate("You are now Logged out!\nHope to See you Soon!"));
+});
+
+
+app.get('/check-login', function (req, res) {
+   if (req.session && req.session.auth && req.session.auth.userId) {
+       // Load the user object
+       pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
+           if (err) {
+              res.status(500).send(err.toString());
+           } else {
+              res.send(result.rows[0].username);
+           }
+       });
+   } else {
+       res.status(400).send('You are not logged in');
+   }
+});
+
+app.post('/create-paste', function(req, res){
+    
+    var pasteBody = req.body.PasteBody;
+    var pasteTitle = req.body.PasteTitle;
+    var pasteAuthor = req.body.PasteAuthor;
+    var pasteTime = req.body.PasteTime;
+    var pasteLink = crypto.randomBytes(8).toString('hex');
+    
+    pool.query('INSERT INTO "pastes" (paste_author, paste_title, paste_time, paste_link, paste_body) VALUES ($1, $2, $3, $4, $5)', 
+    [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody], function(err, result) {
+        
+        if(err){
+            res.status(500).send(err.toString());
+        } else {
+            res.redirect('/');
+        }
+        });
+
+});
+
+app.post('/create_account', function(req, res){
+
+  var username = req.body.username;
+  var firstName = req.body.firstname;
+  var lastName = req.body.lastname;
+  var email = req.body.email;
+  var unEncryptedPassword = req.body.password;
+  
+  var salt = crypto.randomBytes(128).toString('hex');
+  var password = hash(unEncryptedPassword, salt);
+
+  pool.query('INSERT INTO "ctrlvusers" (username, email, firstname, lastname, password) VALUES ($1, $2, $3, $4, $5)', 
+            [username, email, firstName, lastName, password], 
+            function(err, result) {
+
+                    if (err){
+                      res.status(500).send(err.toString());
+                    } else {
+                      //res.send("Successfully Created User!");
+                      res.redirect('/');
+                    }
+                  });
+});
+
+app.use(function(request, response){
+    response.statusCode = 404;
+    response.end(errorTemplate("Page Not Found!"));
+});
 
 
 function errorTemplate(errorMessage){
@@ -236,131 +360,13 @@ function createProfileTemplate(userData) {
         return profileTemplate;
     }
 
-app.get('/ui/:fileName', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
-});
 
-app.get('/pastes/:pasteLink', function (req, res) {
-  pool.query('SELECT * FROM "pastes" WHERE paste_link = $1', [req.params.pasteLink], function(err, result){
-      
-      if (err) {
-          res.status(500).send(err.toString());
-        } else {
-              if (result.rows.length === 0) {
-                  res.status(403).send(errorTemplate("Paste Link Invalid!"));
-              } else {
-                  res.send(createPasteTemplate(result.rows[0]));
-              }
-              }
-        
-  });
-});
-
-app.post('/login', function(req, res){
-    
-    var username = req.body.username;
-    var password = req.body.password;
-    
-    pool.query('SELECT * FROM "ctrlvusers" WHERE "username" = $1', [username], function(err, result) {
-        
-        if (err) {
-          res.status(500).send(err.toString());
-        } else {
-              if (result.rows.length === 0) {
-                  res.status(403).send('username/password is invalid');
-              } else {
-                  // Match the password
-                  var dbString = result.rows[0].password;
-                  var salt = dbString.split('$')[2];
-                  var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the original salt
-                  if (hashedPassword === dbString) {
-                    
-                    // Set the session
-                    req.session.auth = {userId: result.rows[0].id};
-                    // set cookie with a session id
-                    // internally, on the server side, it maps the session id to an object
-                    // { auth: {userId }}
-                    
-                    res.redirect('/');
-                    
-                  } else {
-                      res.send(errorTemplate("Username/Password Invalid!"));
-                  }
-              }
-        }
-});
-});
-
-app.get('/logout', function (req, res) {
-   delete req.session.auth;
-   res.send(errorTemplate("You are now Logged out!\nHope to See you Soon!"));
-});
-
-
-app.get('/check-login', function (req, res) {
-   if (req.session && req.session.auth && req.session.auth.userId) {
-       // Load the user object
-       pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
-           if (err) {
-              res.status(500).send(err.toString());
-           } else {
-              res.send(result.rows[0].username);
-           }
-       });
-   } else {
-       res.status(400).send('You are not logged in');
-   }
-});
-
-app.post('/create-paste', function(req, res){
-    
-    var pasteBody = req.body.PasteBody;
-    var pasteTitle = req.body.PasteTitle;
-    var pasteAuthor = req.body.PasteAuthor;
-    var pasteTime = req.body.PasteTime;
-    var pasteLink = crypto.randomBytes(8).toString('hex');
-    
-    pool.query('INSERT INTO "pastes" (paste_author, paste_title, paste_time, paste_link, paste_body) VALUES ($1, $2, $3, $4, $5)', 
-    [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody], function(err, result) {
-        
-        if(err){
-            res.status(500).send(err.toString());
-        } else {
-            res.redirect('/');
-        }
-        });
-
-});
 
 function hash (input, salt) {
     
     var hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
     return ["pbkdf2", "10000", salt, hashed.toString('hex')].join('$');
 }
-
-app.post('/create_account', function(req, res){
-
-  var username = req.body.username;
-  var firstName = req.body.firstname;
-  var lastName = req.body.lastname;
-  var email = req.body.email;
-  var unEncryptedPassword = req.body.password;
-  
-  var salt = crypto.randomBytes(128).toString('hex');
-  var password = hash(unEncryptedPassword, salt);
-
-  pool.query('INSERT INTO "ctrlvusers" (username, email, firstname, lastname, password) VALUES ($1, $2, $3, $4, $5)', 
-            [username, email, firstName, lastName, password], 
-            function(err, result) {
-
-                    if (err){
-                      res.status(500).send(err.toString());
-                    } else {
-                      //res.send("Successfully Created User!");
-                      res.redirect('/');
-                    }
-                  });
-});
 
 var port = 8080; // Use 8080 for local development because you might already have apache running on 80
 app.listen(port, function () {
