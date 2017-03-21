@@ -201,6 +201,7 @@ app.post('/login', function(req, res){
 
 app.get('/logout', function (req, res) {
    delete req.session.auth;
+   LoggedIn = false;
    res.end(errorTemplate("You are now Logged out!\nHope to See you Soon!"));
 });
 
