@@ -35,7 +35,7 @@ app.use(function(req, res) {
     if (req.session && req.session.auth && req.session.auth.userId) {
        // Load the user object
        GLOBAL.LoggedIn = true;
-       console.log("LoggedIn"+LoggedIn);
+       console.log("LoggedIn");
    }
 });
 
