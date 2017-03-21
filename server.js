@@ -354,6 +354,9 @@ function createPasteTemplate(pasteData){
       <link rel="stylesheet" href="/ui/style.css">
       
       <script src='https://wzrd.in/standalone/copy-button@latest'></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
     <body class="the_body">
@@ -382,8 +385,10 @@ function createPasteTemplate(pasteData){
       </div>
       <div>
       <h6><span class="aLilBold">Paste Live At:</span> <input type="text" value=${completeLink}> </h6> 
-      <copy-button target-text=${completeLink}><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy"></copy-button>
+      <copy-button class="btn btn-success" target-text=${completeLink}><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy"></copy-button>
       </div>
+      
+      <hr/>
 
       </div>
       <div class="getComfortable">
