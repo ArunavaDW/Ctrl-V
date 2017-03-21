@@ -23,7 +23,7 @@ app.use(session({
 }));
 
 app.set("views", path.resolve(__dirname, "ui/views"));
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 var pool = new Pool(config);
 
