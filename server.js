@@ -21,6 +21,10 @@ app.use(session({
     secret: 'someRandomSecretValue',
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 30}
 }));
+
+app.set("views", path.resolve(__dirname, "views"));
+app.set("view engine", "ejs");
+
 var pool = new Pool(config);
 
 app.get('/ctrlVUsers-db', function (req, res) {
@@ -173,7 +177,9 @@ app.post('/create_account', function(req, res){
 
 app.use(function(request, response){
     response.statusCode = 404;
-    response.end(errorTemplate("Page Not Found!"));
+    response.render("errorTemplate", {
+        message: "Page Not Found!"
+    });
 });
 
 
