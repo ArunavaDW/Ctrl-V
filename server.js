@@ -110,7 +110,7 @@ var pool = new Pool(config);
 app.use(function(req, res, next) {
     if (req.session && req.session.auth && req.session.auth.userId) {
        // Load the user object
-       GLOBAL.LoggedIn = true;
+       LoggedIn = true;
        
    }
    next();
