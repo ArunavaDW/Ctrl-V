@@ -194,9 +194,6 @@ app.use(function(request, response){
 
 function errorTemplate(errorMessage){
     
-    if(){
-        
-    }
     var toAdd = `
     <div id="loginBlock">
       <div class="the_footer_login_box">
