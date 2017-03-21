@@ -22,7 +22,7 @@ app.use(session({
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 30}
 }));
 
-app.set("views", path.resolve(__dirname, "views"));
+app.set("views", path.resolve(__dirname, "ui/views"));
 app.set('view engine', 'ejs');
 
 var pool = new Pool(config);
