@@ -366,6 +366,14 @@ copy-button {
   to {transform: scale(1)}
 }
 
+.thisIsInline {
+  display: inline;
+}
+
+#theExtraOrdinaryText {
+  font-family: Helvetica;
+}
+
 .loader {
   display: none;
   border: 6px solid #f3f3f3;
