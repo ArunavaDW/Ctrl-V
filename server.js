@@ -351,6 +351,8 @@ function createPasteTemplate(pasteData){
       <meta name="viewport" content="width=device-width initial-scale=2.0">
 
       <link rel="stylesheet" href="/ui/style.css">
+      
+      <script src='https://wzrd.in/standalone/copy-button@latest'></script>
     </head>
 
     <body class="the_body">
@@ -378,7 +380,7 @@ function createPasteTemplate(pasteData){
       <h6>${time}</h6>
       </div>
       <div>
-      <h6>Paste Live At: http://arunavadw.imad.hasura-app.io/pastes/${link}</h6>
+      <h6>Paste Live At: http://arunavadw.imad.hasura-app.io/pastes/${link}<copy-button>><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy" width="25"></copy-button></h6>
       </div>
 
       </div>
