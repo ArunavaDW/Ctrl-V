@@ -311,7 +311,7 @@ function errorTemplate(errorMessage){
       <h3>${errorMessage}</h3>
       </div>
     
-    <div>${loginBlock}</div>
+    <div class="topMargin1">${loginBlock}</div>
     
     </body>
     </html>`;
