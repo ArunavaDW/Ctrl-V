@@ -183,7 +183,7 @@ app.use(function(request, response){
 });
 
 
-function errorTemplate(errorMessage){
+function errorTemplate34(errorMessage){
     
     var errorTemplate = `
     <!DOCTYPE html>
