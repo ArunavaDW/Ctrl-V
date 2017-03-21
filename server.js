@@ -380,7 +380,7 @@ function createPasteTemplate(pasteData){
       <h6>${time}</h6>
       </div>
       <div>
-      <h6>Paste Live At: http://arunavadw.imad.hasura-app.io/pastes/${link}<copy-button target-element="http://arunavadw.imad.hasura-app.io/pastes/${link}"><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy" width="25"></copy-button></h6>
+      <h6><span class="aLilBold">Paste Live At:</span> http://arunavadw.imad.hasura-app.io/pastes/${link}<copy-button target-element="http://arunavadw.imad.hasura-app.io/pastes/${link}"><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy" width="25"></copy-button></h6>
       </div>
 
       </div>
