@@ -437,3 +437,12 @@ label{
   margin-top: 15px;
   color: #f44336;
 }
+
+.theErrorFooter {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+  margin-top: 50px;
+}
