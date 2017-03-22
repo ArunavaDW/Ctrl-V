@@ -72,10 +72,10 @@ var LoginBlock = `
         title="Close">&times;</span>
           <div class="create_account_box">
             <label><b>Username</b></label>
-            <input type="text" placeholder="Username" name="uname" required>
+            <input type="text" placeholder="Username" name="uname" id="the_uname_login" required>
             <br/><br/>
             <label><b>Password</b></label>
-            <input type="password" placeholder="Password" name="p_asswd" required>
+            <input type="password" placeholder="Password" name="p_asswd" id="the_passwd_login" required>
             <br/><br/>
             <hr/>
             <div class="loader"></div>
