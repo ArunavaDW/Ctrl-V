@@ -386,7 +386,8 @@ label{
 }
 
 #theExtraOrdinaryText {
-  font-family: Syncopate, Helvetica;
+  font-family: "Courier New", Courier, monospace;
+  color: black;
 }
 
 .loader {
