@@ -176,7 +176,6 @@ app.get('/browse', function(req, res){
             }
       }
    });
-   res.send(create); 
 });
 
 app.get('/pastes/bower_components/css-ripple-effect/dist/ripple.min.css', function(req, res){
