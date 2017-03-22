@@ -409,3 +409,25 @@ label{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.dontDecorate {
+  text-decoration: none;
+  color: black;
+}
+
+.goAsh {
+  color: #bdbdbd;
+}
+
+.paddTop {
+  margin-top: 30px;
+}
+
+.aShortPasteLayout {
+  margin: 20px;
+}
+
+.aShortPasteLayout:hover {
+  background-color: #f3e5f5;
+  cursor: pointer;
+}
