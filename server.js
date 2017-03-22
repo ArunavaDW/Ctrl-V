@@ -382,8 +382,8 @@ function createPasteTemplate(pasteData){
       <h6>${time}</h6>
       </div>
       <div>
-      <span class="aLilBold">Paste Live At:</span> <input id="theExtraOrdinaryText" type="text" value=${completeLink}>
-      <copy-button class="addCopyImage" target-text=${completeLink}><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy"></copy-button>
+      <span class="makeItBold">Paste Live At:</span> <input id="theExtraOrdinaryText" type="text" value=${completeLink}>
+      <copy-button id="addCopyImage" target-text=${completeLink}><img src="Copy-50.png" title="Copy" width="40" height="40"></copy-button>
       </div>
       
       <hr/>
