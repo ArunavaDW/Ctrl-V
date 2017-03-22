@@ -622,7 +622,89 @@ function createProfileTemplate(userData) {
         return profileTemplate;
     }
 
-
+function thePastePage() {
+    
+    loginBlock = LoginBlock;
+    
+    if(LoggedIn) {
+        loginBlock = ``;
+    }
+    
+    var pasteHtml = `
+    <!DOCTYPE html>
+    <html lang="en-US">
+    
+    <head>
+      <!-- Page Colors
+            #9143c8 -> Purple
+            #06a209 -> Green
+          -->
+      <title>Ctrl+V</title>
+      <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
+    
+      <meta charset="utf-8">
+      <meta name="description" content="A place where one could paste documents and
+      access it from any where in the web">
+      <meta name="keywords" content="ctrl, v, paste, clipboard, online">
+      <meta name="author" content="Arunava Chakraborty">
+      <meta name="viewport" content="width=device-width initial-scale=2.0">
+    
+      <link rel="stylesheet" href="style.css">
+    </head>
+    
+    <body class="the_body">
+    
+      <div id="theNavigationBar">
+        <ul>
+          <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
+          <br/>
+          <li class="navBarOptions"><a href="/">Main</a></li>
+          <li class="navBarOptions"><a href="#">New Paste</a></li>
+          <li class="navBarOptions"><a href="/browse">Browse</a></li>
+        </ul>
+      </div>
+    
+      <div class="center_wrap">
+        <div>
+          <div>
+            <textarea id="main_paste" cols="100" rows="30"></textarea>
+          </div>
+          <div>
+            <div id="footerOptionsNewPaste">
+              <div class="optionsNewPaste" id="footerOptionsNewPaste1">
+                <h3>Paste As:</h3>
+                <input type="text" class="newPstInputs" id="paste_as" placeholder="Anynomous" name="p_as" onblur="aRedMessageToggler()">
+              </div>
+              <div class="optionsNewPaste" id="footerOptionsNewPaste2">
+                <h3>Title:</h3>
+                <input type="text" class="newPstInputs" id="paste_title" placeholder="Untitled" name="title_of">
+              </div>
+              <div>
+              <h5 id="aRedMessage"><span class="giveMeRed">BY DEFAULT, WHEN ANONYMOUS, YOU WILL NOT BE ABLE TO EDIT OR DELETE YOUR PASTE</span></h5>
+              </div>
+          </div>
+        </div>
+        <hr/>
+        <div id="newPasteDiv">
+          <button id="create_paste_submit" type="submit">Create New Paste</button>
+        </div>
+        </div>
+        
+        <div>${loginBlock}</div>
+        
+      <div class="theFooter">
+        <ul>
+          <li><a class="footerOptions" href="">Created with &#10084; by Arunava</a><li>
+        </ul>
+      </div>
+      
+      <script src="/ui/pasteBrain.js"></script>
+    
+    </body>
+    
+    </html>
+    `;
+}
 
 function hash (input, salt) {
     
