@@ -178,7 +178,11 @@ app.get('/browse', function(req, res){
    });
 });
 
-app.get('/pastes/bower_components/css-ripple-effect/dist/ripple.min.css', function(req, res){
+app.get('pastes/bower_components/css-ripple-effect/dist/ripple.min.css', function(req, res){
+    res.sendFile(path.join(__dirname, 'ui', 'bower_components', 'css-ripple-effect', 'dist', 'ripple.min.css'));
+});
+
+app.get('bower_components/css-ripple-effect/dist/ripple.min.css', function(req, res){
     res.sendFile(path.join(__dirname, 'ui', 'bower_components', 'css-ripple-effect', 'dist', 'ripple.min.css'));
 });
 
@@ -398,7 +402,7 @@ function createBrowsePage(pastesData){
             </a>
             </div>
             <div>
-              <h5 class="goAsh">`+time+`</h5>
+              <h5 class="goAsh">`+time.toLocaleTimeString() on time.toLocaleDateString+`</h5>
             </div>
           </div>
     `;;
@@ -424,7 +428,7 @@ function createBrowsePage(pastesData){
       <meta name="viewport" content="width=device-width initial-scale=2.0">
     
       <link rel="stylesheet" href="/ui/style.css">
-      <link rel="stylesheet" href="bower_components/css-ripple-effect/dist/ripple.min.css">
+      <link rel="stylesheet" href="/ui/pastes/bower_components/css-ripple-effect/dist/ripple.min.css">
     </head>
     
     
