@@ -446,15 +446,15 @@ function createBrowsePage(pastesData){
           ${theTotalLayout}
           </div>
           
+          </div>
+          </div>
           
           <div class="theFooter">
             <ul>
               <li><a class="footerOptions" href="">Created with &#10084; by Arunava</a><li>
             </ul>
           </div>
-          
-          </div>
-          </div>
+        
         </body>
         </html>
     `;
