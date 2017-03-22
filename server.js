@@ -402,7 +402,7 @@ function createBrowsePage(pastesData){
             </a>
             </div>
             <div>
-              <h5 class="goAsh">`+time.toLocaleTimeString()+`</h5>
+              <h5 class="goAsh">`+time+`</h5>
             </div>
           </div>
     `;;
