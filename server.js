@@ -86,6 +86,24 @@ var LoginBlock = `
   </div>
 `;
 
+var aShortPasteLayout = `
+<a class="dontDecorate" href="">
+      <div class="aShortPasteLayout the_box">
+        <div>
+        <div>
+          <h3>${title}</h3>
+        </div>
+        <div>
+          <h4>${author}</h4>
+        </div>
+        </div>
+        <div>
+          <h5 class="goAsh">${time}</h5>
+        </div>
+      </div>
+    </a>
+`;
+
 var config = {
     user: 'arunavadw',
     database: 'arunavadw',
@@ -355,8 +373,77 @@ function errorTemplate(errorMessage){
 
 function createBrowsePage(pastesData){
     
-    var browsePage = `
+    var eachLayout = aShortPasteLayout;
+    var theTotalLayout = "";
     
+    var author;
+    var title;
+    var time;
+    
+    for(i=0; i<pastesData.rows.length; i++){
+        author = pastesData.rows[i].paste_author;
+        title  =  pastesData.rows[i].paste_title;
+        time   =  pastesData.rows[i].paste_time;
+        
+        theTotalLayout += eachLayout;
+    }
+    
+    var browsePage = `
+    <!DOCTYPE html>
+    <html lang="en-US">
+    
+    <head>
+      <!-- Page Colors
+            #9143c8 -> Purple
+            #06a209 -> Green
+          -->
+      <title>Ctrl+V</title>
+      <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
+    
+      <meta charset="utf-8">
+      <meta name="description" content="A place where one could paste documents and
+      access it from any where in the web">
+      <meta name="keywords" content="ctrl, v, paste, clipboard, online">
+      <meta name="author" content="Arunava Chakraborty">
+      <meta name="viewport" content="width=device-width initial-scale=2.0">
+    
+      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="bower_components/css-ripple-effect/dist/ripple.min.css">
+    </head>
+    
+    
+    <body class="the_body">
+    
+      <div id="theNavigationBar">
+          <ul>
+            <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
+            <br/>
+            <li class="navBarOptions"><a  class="ripple" href="/">Main</a></li>
+            <li class="navBarOptions"><a class="ripple" href="/ui/thePaste.html">New Paste</a></li>
+            <li class="navBarOptions"><a class="ripple" href="">Browse</a></li>
+          </ul>
+        </div>
+    
+      <div class="center_wrap">
+        <div class="the_box paddTop">
+          <h2>Recent Pastes:</h2>
+          <hr/>
+          
+          <div>
+          ${theTotalLayout}
+          </div>
+          
+          
+          <div class="theFooter">
+            <ul>
+              <li><a class="footerOptions" href="">Created with &#10084; by Arunava</a><li>
+            </ul>
+          </div>
+          
+          </div>
+          </div>
+        </body>
+        </html>
     `;
     return browsePage;
 }
