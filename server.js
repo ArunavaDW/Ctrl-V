@@ -169,7 +169,7 @@ app.get('/browse', function(req, res){
       if(err){
           res.status(500).end(err.toString());
       } else {
-          if (result.rows.length === 0) {
+          if (response.rows.length === 0) {
             res.status(403).end(errorTemplate("No Pastes Made!"));
             } else {
                 res.end(createBrowsePage(response));
