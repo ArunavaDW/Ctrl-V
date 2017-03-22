@@ -2,9 +2,8 @@ var create_account_btn = document.getElementById('create_account_form_submit');
 var login_btn = document.getElementById('login_btn');
 var loader = document.getElementsByClassName('loader');
 
-console.log(loader);
-
-console.log(login_btn);
+var buttonCopy = document.querySelector("#addCopyImage > button");
+buttonCopy.className += "ripple";
 
 
 login_btn.onclick = function() {
