@@ -388,9 +388,9 @@ function createBrowsePage(pastesData){
         link   = "http://arunavadw.imad.hasura-app.io/pastes/"+pastesData.rows[i].paste_link;
         
         theTotalLayout += `
+        <a class="dontDecorate" href="`+link+`">
           <div class="aShortPasteLayout the_box">
             <div>
-            <a class="dontDecorate" href="`+link+`">
             <div>
               <h3>`+title+`</h3>
             </div>
@@ -401,10 +401,12 @@ function createBrowsePage(pastesData){
             </div>
             </a>
             </div>
+            <a class="dontDecorate" href="`+link+`">
             <div>
               <h5 class="goAsh">`+time+`</h5>
             </div>
           </div>
+          </a>
     `;;
     }
     
@@ -524,7 +526,7 @@ function createPasteTemplate(pasteData){
       </div>
       <div>
       <span class="makeItBold">Paste Live At:</span> <input id="theExtraOrdinaryText" type="text" value=${completeLink}>
-      <copy-button id="addCopyImage" target-text=${completeLink}><img src="/ui/Copy-50.png" title="Copy" width="40" height="40"></copy-button>
+      <copy-button id="addCopyImage" target-element="#theExtraOrdinaryText"><img src="/ui/Copy-50.png" title="Copy" width="40" height="40"></copy-button>
       </div>
       
       <hr/>
