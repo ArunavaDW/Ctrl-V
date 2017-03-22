@@ -15,6 +15,7 @@
   <meta name="keywords" content="ctrl, v, paste, clipboard, online">
   <meta name="author" content="Arunava Chakraborty">
   <meta name="viewport" content="width=device-width initial-scale=2.0">
+  <link rel="stylesheet" href="bower_components/css-ripple-effect/dist/ripple.min.css">
 
   <link rel="stylesheet" href="/ui/style.css">
 </head>
@@ -31,16 +32,16 @@
     <div class="the_box">
       <div>
 
-        <button type="button"
+        <button class="ripple" type="button"
         onclick="document.getElementById('create_account_form')
         .style.display='block'">Create New Account</button>
 
         <br/>
         <hr/>
-        <a class="newPasteLink" href="/ui/thePaste.html"><button id="create_paste_submit" type="button">Create New Paste</button></a>
+        <a class="newPasteLink" href="/ui/thePaste.html"><button class="ripple" id="create_paste_submit" type="button">Create New Paste</button></a>
         <br/>
         <hr/>
-        <button type="button"
+        <button class="ripple" type="button"
         onclick="document.getElementById('login_form')
         .style.display='block'">Login</button>
       </div>
@@ -82,7 +83,7 @@
 
           <hr/>
           <div class="loader"></div>
-          <button id="create_account_form_submit" type="submit">Create New Account</button>
+          <button class="ripple" id="create_account_form_submit" type="submit">Create New Account</button>
         </div>
 
     </div>
@@ -108,7 +109,7 @@
 
           <hr/>
           <div class="loader"></div>
-          <button id="login_btn" type="submit">Login</button>
+          <button class="ripple" id="login_btn" type="submit">Login</button>
         </div>
         
     </div>
