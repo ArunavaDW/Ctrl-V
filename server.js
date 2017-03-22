@@ -164,6 +164,10 @@ app.get('/pastes/:pasteLink', function (req, res) {
   });
 });
 
+app.get('/NewPaste', function(req, res) {
+   res.send(thePastePage()); 
+});
+
 app.get('/browse', function(req, res){
    pool.query('SELECT * FROM "pastes" ORDER BY id DESC', function(err, response){
       if(err){
@@ -704,6 +708,8 @@ function thePastePage() {
     
     </html>
     `;
+    
+    return pasteHtml;
 }
 
 function hash (input, salt) {
