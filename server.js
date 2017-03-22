@@ -354,6 +354,7 @@ function createPasteTemplate(pasteData){
       <link rel="stylesheet" href="/ui/style.css">
       
       <script src='https://wzrd.in/standalone/copy-button@latest'></script>
+      <link rel="stylesheet" href="bower_components/css-ripple-effect/dist/ripple.min.css">
     </head>
 
     <body class="the_body">
@@ -381,8 +382,8 @@ function createPasteTemplate(pasteData){
       <h6>${time}</h6>
       </div>
       <div>
-      <h6 class="thisIsInline"><span class="aLilBold">Paste Live At:</span> <input id="theExtraOrdinaryText" type="text" value=${completeLink}> </h6>
-      <copy-button target-text=${completeLink}><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy"></copy-button>
+      <span class="aLilBold">Paste Live At:</span> <input id="theExtraOrdinaryText" type="text" value=${completeLink}>
+      <copy-button class="addCopyImage" target-text=${completeLink}><img src="https://maxcdn.icons8.com/iOS7/PNG/25/Editing/copy-25.png" title="Copy"></copy-button>
       </div>
       
       <hr/>
@@ -469,6 +470,8 @@ function createProfileTemplate(userData) {
               </div>
             </div>
           </div>
+          
+          <script src="/ui/main.js"></script>
         </body>
         
         </html>`;
