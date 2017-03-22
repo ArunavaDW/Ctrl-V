@@ -77,7 +77,7 @@ var LoginBlock = `
             <input type="password" placeholder="Password" name="p_asswd" required>
             <br/><br/>
             <hr/>
-            <button type="submit">Login</button>
+            <button id="login_btn" type="submit">Login</button>
           </div>
       </div>
     </div>
