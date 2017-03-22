@@ -383,7 +383,7 @@ function createPasteTemplate(pasteData){
       </div>
       <div>
       <span class="makeItBold">Paste Live At:</span> <input id="theExtraOrdinaryText" type="text" value=${completeLink}>
-      <copy-button id="addCopyImage" target-text=${completeLink}><img src="Copy-50.png" title="Copy" width="40" height="40"></copy-button>
+      <copy-button id="addCopyImage" target-text=${completeLink}><img src="/ui/Copy-50.png" title="Copy" width="40" height="40"></copy-button>
       </div>
       
       <hr/>
