@@ -330,7 +330,7 @@ function errorTemplate(errorMessage){
           <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
           <br/>
           <li class="navBarOptions"><a href="/">Main</a></li>
-          <li class="navBarOptions"><a href="/thePaste.html">New Paste</a></li>
+          <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
           <li class="navBarOptions"><a href="/browse">Browse</a></li>
         </ul>
       </div>
@@ -445,7 +445,7 @@ function createBrowsePage(pastesData){
             <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
             <br/>
             <li class="navBarOptions"><a  class="ripple" href="/">Main</a></li>
-            <li class="navBarOptions"><a class="ripple" href="/ui/thePaste.html">New Paste</a></li>
+            <li class="navBarOptions"><a class="ripple" href="/NewPaste">New Paste</a></li>
             <li class="navBarOptions"><a class="ripple" href="/browse">Browse</a></li>
           </ul>
         </div>
@@ -511,7 +511,7 @@ function createPasteTemplate(pasteData){
           <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
           <br/>
           <li class="navBarOptions"><a href="/">Main</a></li>
-          <li class="navBarOptions"><a href="/ui/thePaste.html">New Paste</a></li>
+          <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
           <li class="navBarOptions"><a href="/browse">Browse</a></li>
         </ul>
       </div>
@@ -582,7 +582,7 @@ function createProfileTemplate(userData) {
               <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
               <br/>
               <li class="navBarOptions"><a href="/">Main</a></li>
-              <li class="navBarOptions"><a href="/ui/thePaste.html">New Paste</a></li>
+              <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
               <li class="navBarOptions"><a href="">Edit Profile</a></li>
               <li class="navBarOptions"><a href="/browse">Browse</a></li>
               <li class="goRight"><a href="/logout">Log Out</a></li>
@@ -653,7 +653,7 @@ function thePastePage() {
       <meta name="author" content="Arunava Chakraborty">
       <meta name="viewport" content="width=device-width initial-scale=2.0">
     
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="/ui/style.css">
     </head>
     
     <body class="the_body">
