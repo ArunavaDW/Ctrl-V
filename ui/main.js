@@ -5,6 +5,7 @@ var loader = document.getElementsByClassName('loader');
 var buttonCopy = document.querySelector("#addCopyImage > button");
 buttonCopy.className += "ripple";
 
+console.log("fgfdgdf");
 
 login_btn.onclick = function() {
     
