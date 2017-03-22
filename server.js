@@ -210,7 +210,7 @@ app.post('/login', function(req, res){
                   if (hashedPassword === dbString) {
                     
                     // Set the session
-                    req.session.auth = {userId: result.rows[0].id};
+                    req.session.auth = {userId: result.rows[0].id, userName: result.rows[0].username};
                     // set cookie with a session id
                     // internally, on the server side, it maps the session id to an object
                     // { auth: {userId }}
@@ -253,10 +253,15 @@ app.post('/create-paste', function(req, res){
     var pasteTitle = req.body.PasteTitle;
     var pasteAuthor = req.body.PasteAuthor;
     var pasteTime = req.body.PasteTime;
+    var PasteAnon = req.body.AnonPaste;
     var pasteLink = crypto.randomBytes(8).toString('hex');
+    var pasteUsername = null;
+    if(LoggedIn && !PasteAnon) {
+        pasteUsername = req.session.auth.userName;
+    }
     
-    pool.query('INSERT INTO "pastes" (paste_author, paste_title, paste_time, paste_link, paste_body) VALUES ($1, $2, $3, $4, $5)', 
-    [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody], function(err, result) {
+    pool.query('INSERT INTO "pastes" (paste_author, paste_title, paste_time, paste_link, paste_body, paste_username) VALUES ($1, $2, $3, $4, $5, $6)', 
+    [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody, pasteUsername], function(err, result) {
         
         if(err){
             res.status(500).send(err.toString());
