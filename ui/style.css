@@ -307,6 +307,11 @@ button:hover{
   border-radius: 50%;
 }
 
+.makeItBold {
+  font-weight: bold;
+  font-size: 14px;
+}
+
 input[type=text], input[type=password], input[type=email]{
   width: 30%;
   padding: 10px 10px;
@@ -318,10 +323,6 @@ input[type=text], input[type=password], input[type=email]{
 label{
   padding-left: 35px;
   padding-right: 10px;
-}
-
-copy-button {
-    display: inline;
 }
 
 .label_passwd_padding{
