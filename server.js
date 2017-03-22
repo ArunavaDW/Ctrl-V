@@ -86,24 +86,6 @@ var LoginBlock = `
   </div>
 `;
 
-var aShortPasteLayout = `
-<a class="dontDecorate" href="">
-      <div class="aShortPasteLayout the_box">
-        <div>
-        <div>
-          <h3>${title}</h3>
-        </div>
-        <div>
-          <h4>${author}</h4>
-        </div>
-        </div>
-        <div>
-          <h5 class="goAsh">${time}</h5>
-        </div>
-      </div>
-    </a>
-`;
-
 var config = {
     user: 'arunavadw',
     database: 'arunavadw',
@@ -373,7 +355,23 @@ function errorTemplate(errorMessage){
 
 function createBrowsePage(pastesData){
     
-    var eachLayout = aShortPasteLayout;
+    var eachLayout = 
+    `<a class="dontDecorate" href="">
+      <div class="aShortPasteLayout the_box">
+        <div>
+        <div>
+          <h3>${title}</h3>
+        </div>
+        <div>
+          <h4>${author}</h4>
+        </div>
+        </div>
+        <div>
+          <h5 class="goAsh">${time}</h5>
+        </div>
+      </div>
+    </a>
+    `;
     var theTotalLayout = "";
     
     var author;
