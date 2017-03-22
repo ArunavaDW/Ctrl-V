@@ -164,6 +164,10 @@ app.get('/pastes/:pasteLink', function (req, res) {
   });
 });
 
+app.get('/bower_components/css-ripple-effect/dist/ripple.min.css', function(req, res){
+    res.sendFile(path.join(__dirname, 'ui', 'bower_components', 'css-ripple-effect', 'dist', 'ripple.min.css'));
+});
+
 app.post('/login', function(req, res){
     
     var username = req.body.username;
