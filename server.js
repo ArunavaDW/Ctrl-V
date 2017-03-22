@@ -164,6 +164,21 @@ app.get('/pastes/:pasteLink', function (req, res) {
   });
 });
 
+app.get('/browse', function(req, res){
+   pool.query('SELECT * FROM "pastes" ORDER BY DESC', function(err, response){
+      if(err){
+          res.status(500).end(err.toString());
+      } else {
+          if (result.rows.length === 0) {
+            res.status(403).end(errorTemplate("No Pastes Made!"));
+            } else {
+                res.end(createBrowsePage(response));
+            }
+      }
+   });
+   res.send(create); 
+});
+
 app.get('/pastes/bower_components/css-ripple-effect/dist/ripple.min.css', function(req, res){
     res.sendFile(path.join(__dirname, 'ui', 'bower_components', 'css-ripple-effect', 'dist', 'ripple.min.css'));
 });
@@ -324,11 +339,26 @@ function errorTemplate(errorMessage){
     </div>
     </div>
     </div>
+    
+    <div class="theFooter">
+    <ul>
+      <li><a class="footerOptions" href="">Created with &#10084; by Arunava</a><li>
+    </ul>
+    </div>
+  
     </body>
     </html>
 `;
     
     return errorTemplate;
+}
+
+function createBrowsePage(pastesData){
+    
+    var browsePage = `
+    
+    `;
+    return browsePage;
 }
 
 function createPasteTemplate(pasteData){
