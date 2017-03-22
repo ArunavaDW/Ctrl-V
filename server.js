@@ -327,7 +327,7 @@ function errorTemplate(errorMessage){
           <br/>
           <li class="navBarOptions"><a href="/">Main</a></li>
           <li class="navBarOptions"><a href="/thePaste.html">New Paste</a></li>
-          <li class="navBarOptions"><a href="">Browse</a></li>
+          <li class="navBarOptions"><a href="/browse">Browse</a></li>
         </ul>
       </div>
 
@@ -440,7 +440,7 @@ function createBrowsePage(pastesData){
             <br/>
             <li class="navBarOptions"><a  class="ripple" href="/">Main</a></li>
             <li class="navBarOptions"><a class="ripple" href="/ui/thePaste.html">New Paste</a></li>
-            <li class="navBarOptions"><a class="ripple" href="">Browse</a></li>
+            <li class="navBarOptions"><a class="ripple" href="/browse">Browse</a></li>
           </ul>
         </div>
     
@@ -506,7 +506,7 @@ function createPasteTemplate(pasteData){
           <br/>
           <li class="navBarOptions"><a href="/">Main</a></li>
           <li class="navBarOptions"><a href="/ui/thePaste.html">New Paste</a></li>
-          <li class="navBarOptions"><a href="">Browse</a></li>
+          <li class="navBarOptions"><a href="/browse">Browse</a></li>
         </ul>
       </div>
 
@@ -578,7 +578,7 @@ function createProfileTemplate(userData) {
               <li class="navBarOptions"><a href="/">Main</a></li>
               <li class="navBarOptions"><a href="/ui/thePaste.html">New Paste</a></li>
               <li class="navBarOptions"><a href="">Edit Profile</a></li>
-              <li class="navBarOptions"><a href="">Browse</a></li>
+              <li class="navBarOptions"><a href="/browse">Browse</a></li>
               <li class="goRight"><a href="/logout">Log Out</a></li>
             </ul>
           </div>
