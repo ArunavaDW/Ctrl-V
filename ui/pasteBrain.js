@@ -1,6 +1,14 @@
-
 var create_paste_btn = document.getElementById('create_paste_submit');
-console.log(create_paste_btn);
+var redMessage1 = document.getElementById('aRedMessage');
+var pasteAuthor = document.getElementById('paste_as');
+
+function aRedMessageToggler() {
+    if(pasteAuthor.value === 'Anonymous'){
+        redMessage1.style.display = 'block';
+    } else {
+        redMessage1.style.display = 'none';
+    }
+}
 
 create_paste_btn.onclick = function() {
   var request = new XMLHttpRequest();
