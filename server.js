@@ -69,7 +69,7 @@ var LoginBlock = `
         <span onclick="document.getElementById('login_form')
         .style.display='none'" class="theCloseButton"
         title="Close">&times;</span>
-        <form action="/action.php">
+        <form method="post" action="/login">
           <div class="create_account_box">
             <label><b>Username</b></label>
             <input type="text" placeholder="Username" name="uname" required>
@@ -633,10 +633,12 @@ function createProfileTemplate(userData) {
 
 function thePastePage() {
     
-    loginBlock = LoginBlock;
+    var loginBlock = LoginBlock;
+    var loadMainScriptHtml = `<script src="/ui/main.js"></script>`;
     
     if(LoggedIn) {
         loginBlock = ``;
+        loadMainScriptHtml = ``;
     }
     
     var pasteHtml = `
@@ -710,6 +712,7 @@ function thePastePage() {
       </div>
       
       <script src="/ui/pasteBrain.js"></script>
+      ${loadMainScriptHtml}
     
     </body>
     
