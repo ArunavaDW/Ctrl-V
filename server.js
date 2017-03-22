@@ -165,7 +165,7 @@ app.get('/pastes/:pasteLink', function (req, res) {
 });
 
 app.get('/browse', function(req, res){
-   pool.query('SELECT * FROM "pastes" ORDER BY DESC', function(err, response){
+   pool.query('SELECT * FROM "pastes"', function(err, response){
       if(err){
           res.status(500).end(err.toString());
       } else {
