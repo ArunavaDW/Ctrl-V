@@ -69,7 +69,6 @@ var LoginBlock = `
         <span onclick="document.getElementById('login_form')
         .style.display='none'" class="theCloseButton"
         title="Close">&times;</span>
-        <form method="post" action="/login">
           <div class="create_account_box">
             <label><b>Username</b></label>
             <input type="text" placeholder="Username" name="uname" required>
@@ -80,7 +79,6 @@ var LoginBlock = `
             <hr/>
             <button type="submit">Login</button>
           </div>
-        </form>
       </div>
     </div>
   </div>
