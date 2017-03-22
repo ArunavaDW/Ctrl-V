@@ -379,25 +379,28 @@ function createBrowsePage(pastesData){
     
     for(i=0; i<pastesData.rows.length; i++){
         author = pastesData.rows[i].paste_author;
-        title  =  pastesData.rows[i].paste_title;
-        time   =  pastesData.rows[i].paste_time;
+        title  = pastesData.rows[i].paste_title;
+        time   = pastesData.rows[i].paste_time;
+        link   = "http://arunavadw.imad.hasura-app.io/pastes/"+pastesData.rows[i].paste_link;
         
-        theTotalLayout += 
-        `<a class="dontDecorate" href="">
+        theTotalLayout += `
           <div class="aShortPasteLayout the_box">
             <div>
+            <a class="dontDecorate" href="`+link+`">
             <div>
               <h3>`+title+`</h3>
             </div>
+            </a>
+            <a class="dontDecorate" href="">
             <div>
               <h4>`+author+`</h4>
             </div>
+            </a>
             </div>
             <div>
               <h5 class="goAsh">`+time+`</h5>
             </div>
           </div>
-        </a>
     `;;
     }
     
