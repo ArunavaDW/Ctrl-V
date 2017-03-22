@@ -349,10 +349,8 @@ function errorTemplate(errorMessage){
     <div class="topMargin1">${loginBlock}</div>
     
     </div>
-    </div>
-    </div>
     
-    <div class="theFooter">
+    <div class="theErrorFooter">
     <ul>
       <li><a class="footerOptions" href="">Created with &#10084; by Arunava</a><li>
     </ul>
@@ -391,10 +389,17 @@ function createBrowsePage(pastesData){
     var time;
     
     for(i=0; i<pastesData.rows.length; i++){
-        author = pastesData.rows[i].paste_author;
-        title  = pastesData.rows[i].paste_title;
-        time   = pastesData.rows[i].paste_time;
-        link   = "http://arunavadw.imad.hasura-app.io/pastes/"+pastesData.rows[i].paste_link;
+        var author = pastesData.rows[i].paste_author;
+        var title  = pastesData.rows[i].paste_title;
+        var time   = pastesData.rows[i].paste_time;
+        var username = pastesData.rows[i].paste_username;
+        var link   = "http://arunavadw.imad.hasura-app.io/pastes/"+pastesData.rows[i].paste_link;
+        
+        if(username === null || username === ''){
+            username = `#`;
+        }
+        
+        usernameLink = "http://arunavadw.imad.hasura-app.io/users/"+username;
         
         theTotalLayout += `
         <a class="dontDecorate" href="`+link+`">
@@ -403,14 +408,12 @@ function createBrowsePage(pastesData){
             <div>
               <h3>`+title+`</h3>
             </div>
-            </a>
             <a class="dontDecorate" href="">
             <div>
               <h4>`+author+`</h4>
             </div>
             </a>
             </div>
-            <a class="dontDecorate" href="`+link+`">
             <div>
               <h5 class="goAsh">`+time+`</h5>
             </div>
