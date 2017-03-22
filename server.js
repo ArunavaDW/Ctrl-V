@@ -157,7 +157,7 @@ app.get('/pastes/:pasteLink', function (req, res) {
               if (result.rows.length === 0) {
                   res.status(403).send(errorTemplate("Paste Link Invalid!"));
               } else {
-                  res.send(createPasteTemplate(result.rows[0]));
+                  res.end(createPasteTemplate(result.rows[0]));
               }
               }
         
@@ -192,7 +192,7 @@ app.post('/login', function(req, res){
                     res.redirect('/');
                     
                   } else {
-                      res.send(errorTemplate("Username/Password Invalid!"));
+                      res.end(errorTemplate("Username/Password Invalid!"));
                   }
               }
         }
