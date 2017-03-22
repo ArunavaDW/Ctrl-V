@@ -382,7 +382,23 @@ function createBrowsePage(pastesData){
         title  =  pastesData.rows[i].paste_title;
         time   =  pastesData.rows[i].paste_time;
         
-        theTotalLayout += eachLayout;
+        theTotalLayout += 
+        `<a class="dontDecorate" href="">
+          <div class="aShortPasteLayout the_box">
+            <div>
+            <div>
+              <h3>`+title+`</h3>
+            </div>
+            <div>
+              <h4>`+author+`</h4>
+            </div>
+            </div>
+            <div>
+              <h5 class="goAsh">`+time+`</h5>
+            </div>
+          </div>
+        </a>
+    `;;
     }
     
     var browsePage = `
