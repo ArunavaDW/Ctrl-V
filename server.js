@@ -58,6 +58,7 @@ var LoginBlock = `
             <input type="password" placeholder="Re-Type Password" name="c_passwd" required>
              <br/><br/><br/><br/>
             <hr/>
+            <div class="loader"></div>
             <button id="create_account_form_submit" type="submit">Create New Account</button>
           </div>
       </div>
@@ -77,6 +78,7 @@ var LoginBlock = `
             <input type="password" placeholder="Password" name="p_asswd" required>
             <br/><br/>
             <hr/>
+            <div class="loader"></div>
             <button id="login_btn" type="submit">Login</button>
           </div>
       </div>
