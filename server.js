@@ -613,11 +613,11 @@ function createProfileTemplate(userData) {
     var limit = ctrlvHits;
     
     var ctrlvRecents = "";
-    
+    var gh = "arunava";
     pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [userData.username], function(err, result) {
-        
+        console.log(gh);
         if (err && result.rows.length === 0){
-            ctrlvHits = undefined;
+            ctrlvHits = 0;
         } else {
             ctrlvHits = result.rows.length;
             if(ctrlvHits > 5){
@@ -625,7 +625,6 @@ function createProfileTemplate(userData) {
             } else {
                 limit = ctrlvHits;
             }
-            console.log(ctrlvRecents+"a");
             
             for(i=0; i<limit; i++){
                 var author = result.rows[i].paste_author;
@@ -661,10 +660,8 @@ function createProfileTemplate(userData) {
             `;
             }
         }
-        console.log("a\n"+ctrlvRecents);
-    });
-    
-    console.log(ctrlvRecents);
+        
+        console.log(ctrlvRecents);
     if(proPic === null){
         proPic = '/ui/blank-profile-picture.png';
     }
@@ -738,6 +735,8 @@ function createProfileTemplate(userData) {
         </html>`;
         
         return profileTemplate;
+    });
+    
     }
 
 function thePastePage() {
