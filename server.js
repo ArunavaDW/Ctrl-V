@@ -159,7 +159,16 @@ app.get('/users/:username', function(req, res){
 });
 
 app.get('/ui/:fileName', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
+  
+  if(fileName !== 'edit'){
+    res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
+  } else {
+      if(checkLogin()){
+          res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
+      } else{
+          res.end(errorTemplate("Sorry, You are not Authorized!"));
+      }
+  }
 });
 
 app.get('/pastes/:pasteLink', function (req, res) {
@@ -605,7 +614,7 @@ function createProfileTemplate(userData) {
               <br/>
               <li class="navBarOptions"><a href="/">Main</a></li>
               <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
-              <li class="navBarOptions"><a href="">Edit Profile</a></li>
+              <li class="navBarOptions"><a href="/edit">Edit Profile</a></li>
               <li class="navBarOptions"><a href="/browse">Browse</a></li>
               <li class="goRight"><a href="/logout">Log Out</a></li>
             </ul>
