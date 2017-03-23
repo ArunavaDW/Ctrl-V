@@ -160,7 +160,7 @@ app.get('/users/:username', function(req, res){
 
 app.get('/ui/:fileName', function (req, res) {
   
-  if(fileName !== 'edit'){
+  if(req.params.fileName !== 'edit'){
     res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
   } else {
       if(checkLogin()){
