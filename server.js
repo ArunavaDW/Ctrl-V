@@ -433,13 +433,15 @@ function createBrowsePage(pastesData){
     var author;
     var title;
     var time;
+    var username;
+    var link;
     
     for(i=0; i<pastesData.rows.length; i++){
-        var author = pastesData.rows[i].paste_author;
-        var title  = pastesData.rows[i].paste_title;
-        var time   = pastesData.rows[i].paste_time;
-        var username = pastesData.rows[i].paste_username;
-        var link   = "http://arunavadw.imad.hasura-app.io/pastes/"+pastesData.rows[i].paste_link;
+        author = pastesData.rows[i].paste_author;
+        title  = pastesData.rows[i].paste_title;
+        time   = pastesData.rows[i].paste_time;
+        username = pastesData.rows[i].paste_username;
+        link   = "http://arunavadw.imad.hasura-app.io/pastes/"+pastesData.rows[i].paste_link;
         
         if(username === null || username === ''){
             username = `#`;
@@ -465,7 +467,7 @@ function createBrowsePage(pastesData){
             </div>
           </div>
           </a>
-    `;;
+    `;
     }
     
     var browsePage = `
@@ -623,8 +625,7 @@ function createProfileTemplate(userData) {
             } else {
                 limit = ctrlvHits;
             }
-            console.log(ctrlvHits);
-            console.log(limit);
+            console.log(ctrlvRecents+"a");
             
             for(i=0; i<limit; i++){
                 var author = result.rows[i].paste_author;
@@ -658,7 +659,6 @@ function createProfileTemplate(userData) {
                   </div>
                   </a>
             `;
-            console.log("dfsd");
             }
         }
     });
