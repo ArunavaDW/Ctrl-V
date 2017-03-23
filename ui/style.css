@@ -138,6 +138,7 @@ textarea {
   font-size: 15px;
   letter-spacing: 1px;
   line-height: 22px;
+  box-sizing: border-box;
 }
 
 #main_paste {
