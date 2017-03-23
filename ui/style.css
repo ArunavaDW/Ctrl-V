@@ -71,6 +71,7 @@ li {
 .navBarOptions {
   float: left;
   margin-left: 35px;
+  margin-right: 10px;
 }
 
 .goRight {
