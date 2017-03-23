@@ -147,7 +147,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/users/:username', function(req, res){
-    if(checkLogin){
+    if(checkLogin(req, res)){
         pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
            if (err) {
               res.status(500).send(err.toString());
@@ -165,7 +165,7 @@ app.get('/ui/:fileName', function (req, res) {
   if(req.params.fileName !== 'editProfile.html'){
     res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
   } else {
-      if(checkLogin()){
+      if(checkLogin(req, res)){
           res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
       } else{
           res.end(errorTemplate("Sorry, You are not Authorized!"));
