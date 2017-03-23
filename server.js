@@ -658,9 +658,12 @@ function createProfileTemplate(userData) {
                   </div>
                   </a>
             `;
+            console.log("dfsd");
             }
         }
     });
+    
+    console.log(ctrlvRecents);
     if(proPic === null){
         proPic = '/ui/blank-profile-picture.png';
     }
