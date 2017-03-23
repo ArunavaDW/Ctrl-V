@@ -321,10 +321,22 @@ app.post('/create_account', function(req, res){
                   });
 });
 
+app.post('/edit-profile-save', function(req, res) {
+    var dpLink = req.body.DpLink;
+    var bio = req.body.Bio;
+    
+    pool.query('UPDATE "ctrlvusers" SET "bio" = $1, "dp_link" = $2 WHERE (("username" = $3))', [bio, dpLink, req.session.auth.userName], function(err, result) {
+       if(err){
+           res.status(500).send(errorTemplate("Something Went Wrong!\nPlease try Again!"));
+       } else {
+           res.redirect('/');
+       }
+    });
+});
+
 app.use(function(request, response){
     response.end(errorTemplate("Page Not Found!"));
 });
-
 
 function errorTemplate(errorMessage){
     
@@ -585,6 +597,12 @@ function createPasteTemplate(pasteData){
 function createProfileTemplate(userData) {
     var firstName = userData.firstname;
     var userBio = userData.bio;
+    var proPic = userData.dp_link;
+    
+    if(proPic === null){
+        proPic = '/ui/blank-profile-picture.png';
+    }
+    
     if(userBio === null){
         userBio = "This user has no Bio";
     }
@@ -616,7 +634,7 @@ function createProfileTemplate(userData) {
               <br/>
               <li class="navBarOptions"><a href="/">Main</a></li>
               <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
-              <li class="navBarOptions"><a href="/ui/editProfile.html">Edit Profile</a></li>
+              <li class="navBarOptions"><a href="/NewPaste">Edit Profile</a></li>
               <li class="navBarOptions"><a href="/browse">Browse</a></li>
               <li class="goRight"><a href="/logout">Log Out</a></li>
             </ul>
@@ -625,7 +643,7 @@ function createProfileTemplate(userData) {
           <div class="center_wrap">
             <div id="identifier_main">
               <div class="identifier_1">
-                <img id="theProfilePicture" src="/ui/blank-profile-picture.png" alt="Profile Picture"
+                <img id="theProfilePicture" src=${proPic} alt="Profile Picture"
                 width="130" height="130" class="profile_picture" />
               </div>
               <div class="identifier_1">
