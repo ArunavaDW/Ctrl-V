@@ -102,7 +102,7 @@ app.use(session({
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 30}
 }));
 
-app.set("views", path.resolve(__dirname, "ui/views"));
+app.set("views", path.resolve(__dirname, "/ui/views"));
 app.set("view engine", "ejs");
 
 var pool = new Pool(config);
@@ -135,8 +135,8 @@ app.get('/ctrlVUsers-db', function (req, res) {
 app.get('/', function (req, res) {
     
     console.log('We are here');
-    console.log(checkLogin);
-    if (checkLogin) {
+    console.log(checkLogin());
+    if (checkLogin()) {
        res.redirect('/users/'+req.session.userName);
    } else {
        res.sendFile(path.join(__dirname, 'ui', 'index.html'));
