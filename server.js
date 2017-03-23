@@ -137,7 +137,7 @@ app.get('/', function (req, res) {
     console.log('We are here');
     console.log(checkLogin(req, res));
     if (checkLogin(req, res)) {
-       res.redirect('/users/'+req.session.userName);
+       res.redirect('/users/'+req.session.auth.userName);
    } else {
        res.sendFile(path.join(__dirname, 'ui', 'index.html'));
    }
