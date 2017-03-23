@@ -4,8 +4,12 @@ var editSaveBtn = document.getElementById('editProfileSave');
 var loader = document.getElementsByClassName('loader');
 
 function loadTheImage(){
-  console.log("dfdsfsdfsdf");
-  theDp.src = theDpLink.value;
+  proPicLink = theDpLink.value;
+  if(proPicLink !== ""){
+      theDp.src = theDpLink.value;
+  } else {
+      theDp.src = '/ui/blank-profile-picture.png';
+  }
 }
 
 editSaveBtn.onclick = function() {
@@ -26,6 +30,10 @@ editSaveBtn.onclick = function() {
   
   var dpLink = theDpLink.value;
   var bio  = document.getElementById('theBioArea').value;
+  
+  if(dpLink === ""){
+      dpLink = null;
+  }
   
   request.open('POST', 'http://arunavadw.imad.hasura-app.io/edit-profile-save', true);
   request.setRequestHeader('Content-Type', 'application/json');
