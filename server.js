@@ -607,7 +607,55 @@ function createProfileTemplate(userData) {
     var firstName = userData.firstname;
     var userBio = userData.bio;
     var proPic = userData.dp_link;
+    var ctrlvHits = userData.ctrlvhits;
+    var limit = ctrlvHits;
     
+    var ctrlvRecents = ``;
+    
+    pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [userData.username], function(err, result) {
+        if (err && result.rows.length === 0){
+            ctrlvHits = undefined;
+        } else {
+            ctrlvHits = result.rows.length;
+            if(ctrlvHits > 5){
+                limit = 5;
+            }
+            
+            for(i=0; i<limit; i++){
+                var author = result.rows[i].paste_author;
+                var title  = result.rows[i].paste_title;
+                var time   = result.rows[i].paste_time;
+                var username = result.rows[i].paste_username;
+                var link   = "http://arunavadw.imad.hasura-app.io/pastes/"+result.rows[i].paste_link;
+                
+                if(username === null || username === ''){
+                    username = `#`;
+                }
+                
+                usernameLink = "http://arunavadw.imad.hasura-app.io/users/"+username;
+                
+                ctrlvRecents += `
+                <a class="dontDecorate" href="`+link+`">
+                  <div class="aShortPasteLayout the_box">
+                    <div>
+                    <div>
+                      <h3>`+title+`</h3>
+                    </div>
+                    <a class="dontDecorate" href="">
+                    <div>
+                      <h4>`+author+`</h4>
+                    </div>
+                    </a>
+                    </div>
+                    <div>
+                      <h5 class="goAsh">`+time+`</h5>
+                    </div>
+                  </div>
+                  </a>
+            `;
+            }
+        }
+    });
     if(proPic === null){
         proPic = '/ui/blank-profile-picture.png';
     }
@@ -615,7 +663,7 @@ function createProfileTemplate(userData) {
     if(userBio === null){
         userBio = "This user has no Bio";
     }
-    var ctrlvHits = userData.ctrlvhits;
+    
     if(ctrlvHits === undefined){
         ctrlvHits = 0;
     }
@@ -673,6 +721,7 @@ function createProfileTemplate(userData) {
                   <h2>Ctrl+V by you:</h2>
                 </div>
                 <div id="ctrlvhitsbox">
+                ${ctrlvRecents}
                 </div>
               </div>
             </div>
