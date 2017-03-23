@@ -661,6 +661,7 @@ function createProfileTemplate(userData) {
             `;
             }
         }
+        console.log("a\n"+ctrlvRecents);
     });
     
     console.log(ctrlvRecents);
