@@ -70,6 +70,7 @@ li {
 
 .navBarOptions {
   float: left;
+  margin-left: 35px;
 }
 
 .goRight {
@@ -108,7 +109,7 @@ li {
   font-weight: bolder;
   font-size: 50px;
   float: left;
-  margin-right: 40px;
+  margin-right: 60px;
 }
 
 li a {
@@ -118,6 +119,14 @@ li a {
   padding: 14px 16px;
   width: 150px;
   text-decoration: none;
+}
+
+li a:hover {
+  box-shadow: 0px 8px 8px rgba(0,0,0,0.14);
+}
+
+li a::selection {
+  box-shadow: 0px 8px 8px rgba(0,0,0,0.14);
 }
 
 textarea {
