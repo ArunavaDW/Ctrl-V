@@ -135,11 +135,14 @@ textarea {
   resize: none;
   margin: 20px;
   padding: 10px 20px;
-  position: relative;
-  left: -140px;
   font-size: 15px;
   letter-spacing: 1px;
   line-height: 22px;
+}
+
+#main_paste {
+  position: relative;
+  left: -140px;
 }
 
 .the_footer_login_box {
