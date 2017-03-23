@@ -115,7 +115,7 @@ app.use(function(req, res, next) {
    next();
 });
 
-function checkLogin(){
+function checkLogin(req, res){
     if (req.session && req.session.auth && req.session.auth.userId) {
        // Load the user object
        return true;
@@ -135,8 +135,8 @@ app.get('/ctrlVUsers-db', function (req, res) {
 app.get('/', function (req, res) {
     
     console.log('We are here');
-    console.log(checkLogin());
-    if (checkLogin()) {
+    console.log(checkLogin(req, res));
+    if (checkLogin(req, res)) {
        res.redirect('/users/'+req.session.userName);
    } else {
        res.sendFile(path.join(__dirname, 'ui', 'index.html'));
