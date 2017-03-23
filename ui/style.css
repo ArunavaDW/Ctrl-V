@@ -324,7 +324,6 @@ button:hover{
 }
 
 input[type=text], input[type=password], input[type=email]{
-  width: 30%;
   padding: 10px 10px;
   display: inline-block;
   box-sizing: border-box;
@@ -456,4 +455,8 @@ label{
   right: 0px;
   margin-bottom: 0px;
   margin-top: 50px;
+}
+
+.requiredClass1 {
+  width: 30%;
 }
