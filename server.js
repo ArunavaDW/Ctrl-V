@@ -149,10 +149,23 @@ app.get('/', function (req, res) {
 app.get('/users/:username', function(req, res){
     if(checkLogin(req, res)){
         pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
-           if (err) {
+           if (err && result.rows.length === 0) {
               res.status(500).send(err.toString());
            } else {
-              res.end(createProfileTemplate(result.rows[0]));
+               
+              pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [userData.username], function(err, result2) {
+                if (err && result2.rows.length === 0){
+                    ctrlvHits = 0;
+                } else {
+                    ctrlvHits = result2.rows.length;
+                    if(ctrlvHits > 5){
+                        limit = 5;
+                    } else {
+                        limit = ctrlvHits;
+                    }
+                }
+                res.end(createProfileTemplate(result.rows[0], result2, ctrlvHits));
+    });
            }
        });
     } else {
@@ -605,66 +618,57 @@ function createPasteTemplate(pasteData){
 }
 
 
-function createProfileTemplate(userData) {
+function createProfileTemplate(userData, pastesData, ctrlvHits) {
     var firstName = userData.firstname;
     var userBio = userData.bio;
     var proPic = userData.dp_link;
-    var ctrlvHits = userData.ctrlvhits;
     var limit = ctrlvHits;
     
+    if(ctrlvHits > 5){
+        limit = 5;
+    } else {
+        limit = ctrlvHits;
+    }
+    
     var ctrlvRecents = "";
-    var gh = "arunava";
-    ctrlvHits, ctrlvRecents = pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [userData.username], function(err, result) {
-        console.log(gh);
-        if (err && result.rows.length === 0){
-            ctrlvHits = 0;
-        } else {
-            ctrlvHits = result.rows.length;
-            if(ctrlvHits > 5){
-                limit = 5;
-            } else {
-                limit = ctrlvHits;
-            }
             
-            for(i=0; i<limit; i++){
-                var author = result.rows[i].paste_author;
-                var title  = result.rows[i].paste_title;
-                var time   = result.rows[i].paste_time;
-                var username = result.rows[i].paste_username;
-                var link   = "http://arunavadw.imad.hasura-app.io/pastes/"+result.rows[i].paste_link;
-                
-                if(username === null || username === ''){
-                    username = `#`;
-                }
-                
-                usernameLink = "http://arunavadw.imad.hasura-app.io/users/"+username;
-                
-                ctrlvRecents += `
-                <a class="dontDecorate" href="`+link+`">
-                  <div class="aShortPasteLayout the_box">
-                    <div>
-                    <div>
-                      <h3>`+title+`</h3>
-                    </div>
-                    <a class="dontDecorate" href="">
-                    <div>
-                      <h4>`+author+`</h4>
-                    </div>
-                    </a>
-                    </div>
-                    <div>
-                      <h5 class="goAsh">`+time+`</h5>
-                    </div>
-                  </div>
-                  </a>
-            `;
-            }
+    for(i=0; i<limit; i++){
+        var author   = pastesData.rows[i].paste_author;
+        var title    = pastesData.rows[i].paste_title;
+        var time     = pastesData.rows[i].paste_time;
+        var username = pastesData.rows[i].paste_username;
+        var link     = "http://arunavadw.imad.hasura-app.io/pastes/"+pastesData.rows[i].paste_link;
+        
+        if(username === null || username === ''){
+            username = `#`;
         }
         
-        return ctrlvHits, ctrlvRecents;
-    });
+        usernameLink = "http://arunavadw.imad.hasura-app.io/users/"+username;
+        
+        ctrlvRecents += `
+        <a class="dontDecorate" href="`+link+`">
+          <div class="aShortPasteLayout the_box">
+            <div>
+            <div>
+              <h3>`+title+`</h3>
+            </div>
+            <a class="dontDecorate" href="">
+            <div>
+              <h4>`+author+`</h4>
+            </div>
+            </a>
+            </div>
+            <div>
+              <h5 class="goAsh">`+time+`</h5>
+            </div>
+          </div>
+          </a>
+        `;
+        }
     
-    console.log(ctrlvHits);
+    console.log(ctrlvRecents);
+
+    
     if(proPic === null){
         proPic = '/ui/blank-profile-picture.png';
     }
