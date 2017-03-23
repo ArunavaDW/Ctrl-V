@@ -119,6 +119,7 @@ li a {
   padding: 14px 16px;
   width: 150px;
   text-decoration: none;
+  transition: box-shadow 0.5s;
 }
 
 li a:hover {
