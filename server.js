@@ -610,10 +610,10 @@ function createProfileTemplate(userData) {
     var ctrlvHits = userData.ctrlvhits;
     var limit = ctrlvHits;
     
-    var ctrlvRecents = ``;
+    var ctrlvRecents = "";
     
     pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [userData.username], function(err, result) {
-        console.log(result);
+        
         if (err && result.rows.length === 0){
             ctrlvHits = undefined;
         } else {
@@ -623,6 +623,8 @@ function createProfileTemplate(userData) {
             } else {
                 limit = ctrlvHits;
             }
+            console.log(ctrlvHits);
+            console.log(limit);
             
             for(i=0; i<limit; i++){
                 var author = result.rows[i].paste_author;
@@ -665,10 +667,6 @@ function createProfileTemplate(userData) {
     
     if(userBio === null){
         userBio = "This user has no Bio";
-    }
-    
-    if(ctrlvHits === undefined){
-        ctrlvHits = 0;
     }
     
     var profileTemplate = `
