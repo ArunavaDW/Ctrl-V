@@ -111,10 +111,17 @@ app.use(function(req, res, next) {
     if (req.session && req.session.auth && req.session.auth.userId) {
        // Load the user object
        LoggedIn = true;
-       
    }
    next();
 });
+
+function checkLogin(){
+    if (req.session && req.session.auth && req.session.auth.userId) {
+       // Load the user object
+       return true;
+    }
+    return false;
+}
 
 app.get('/ctrlVUsers-db', function (req, res) {
   
@@ -128,20 +135,26 @@ app.get('/ctrlVUsers-db', function (req, res) {
 app.get('/', function (req, res) {
     
     console.log('We are here');
-    if (req.session && req.session.auth && req.session.auth.userId) {
-       
-       pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
-           if (err) {
-              res.status(500).send(err.toString());
-           } else {
-              res.send(createProfileTemplate(result.rows[0]));
-           }
-       });
-       
+    if (checkLogin) {
+       res.redirect('/users/'+req.session.userName);
    } else {
        res.sendFile(path.join(__dirname, 'ui', 'index.html'));
    }
   
+});
+
+app.get('/users/:username', function(req, res){
+    if(checkLogin){
+        pool.query('SELECT * FROM "ctrlvusers" WHERE id = $1', [req.session.auth.userId], function (err, result) {
+           if (err) {
+              res.status(500).send(err.toString());
+           } else {
+              res.end(createProfileTemplate(result.rows[0]));
+           }
+       });
+    } else {
+        res.end(errorTemplate("Kindly, Login First!"));
+    }
 });
 
 app.get('/ui/:fileName', function (req, res) {
