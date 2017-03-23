@@ -153,7 +153,7 @@ app.get('/users/:username', function(req, res){
               res.status(500).send(err.toString());
            } else {
                
-              pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [userData.username], function(err, result2) {
+              pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [req.session.auth.userName], function(err, result2) {
                 if (err && result2.rows.length === 0){
                     ctrlvHits = 0;
                 } else {
