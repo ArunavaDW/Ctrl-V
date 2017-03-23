@@ -161,16 +161,25 @@ app.get('/users/:username', function(req, res){
 });
 
 app.get('/ui/:fileName', function (req, res) {
-  
-  if(req.params.fileName !== 'editProfile.html'){
-    res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
-  } else {
+  res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
+});
+
+app.get('/EditProfile', function(req, res){
       if(checkLogin(req, res)){
-          res.sendFile(path.join(__dirname, 'ui', req.params.fileName));
+          pool.query('SELECT * FROM "ctrlvusers" WHERE username = $1', [req.session.auth.userName], function(err, result){
+              if(err){
+                  res.status(500).send(errorTemplate("Unknown Error!"));
+              } else {
+                  if(result.rows.length === 0){
+                      res.status(500).send(errorTemplate("Unknown Error!"));
+                  } else {
+                      res.send(editProfilePage(result.rows[0]));
+                  }
+              }
+          });
       } else{
           res.end(errorTemplate("Sorry, You are not Authorized!"));
       }
-  }
 });
 
 app.get('/pastes/:pasteLink', function (req, res) {
@@ -634,7 +643,7 @@ function createProfileTemplate(userData) {
               <br/>
               <li class="navBarOptions"><a href="/">Main</a></li>
               <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
-              <li class="navBarOptions"><a href="/ui/editProfile.html">Edit Profile</a></li>
+              <li class="navBarOptions"><a href="/EditProfile">Edit Profile</a></li>
               <li class="navBarOptions"><a href="/browse">Browse</a></li>
               <li class="goRight"><a href="/logout">Log Out</a></li>
             </ul>
@@ -766,6 +775,96 @@ function thePastePage() {
     `;
     
     return pasteHtml;
+}
+
+function editProfilePage(userInfo) {
+    
+    var proLink = userInfo.dp_link;
+    var proLinkValue = proLink;
+    var proBio = userInfo.bio;
+    
+    if(proBio === null){
+      proBio = "";
+    }
+    
+    if(proLink === null) {
+        proLink = '/ui/blank-profile-picture.png';
+        proLinkValue = "";
+    }
+    
+    var editPage = `
+    <!DOCTYPE html>
+    <html lang="en-US">
+    
+    <head>
+      <!-- Page Colors
+            #9143c8 -> Purple
+            #06a209 -> Green
+          -->
+      <title>Ctrl+V</title>
+      <link rel="shortcut icon" type="image/gif/png" href="favicon.ico" />
+    
+      <meta charset="utf-8">
+      <meta name="description" content="A place where one could paste documents and
+      access it from any where in the web">
+      <meta name="keywords" content="ctrl, v, paste, clipboard, online">
+      <meta name="author" content="Arunava Chakraborty">
+      <meta name="viewport" content="width=device-width initial-scale=2.0">
+    
+      <link rel="stylesheet" href="/ui/style.css">
+    </head>
+    
+    
+    <body class="the_body">
+    
+      <div id="theNavigationBar">
+        <ul>
+          <li><a class="navBarOption_site_name" href=''>Ctrl+V</a></li>
+          <br/>
+          <li class="navBarOptions"><a href="/">Main</a></li>
+          <li class="navBarOptions"><a href="/ui/thePaste.html">New Paste</a></li>
+          <li class="navBarOptions"><a href="#">Edit Profile</a></li>
+          <li class="navBarOptions"><a href="/browse">Browse</a></li>
+          <li class="goRight"><a href="/logout">Log Out</a></li>
+        </ul>
+      </div>
+    
+      <div class="center_wrap">
+        <div>
+          <div class="justMargin">
+            <div class="topMargin1">
+            <img id="theProfilePicture" src=${proLink} alt="Profile Picture"
+            width="130" height="130" class="profile_picture" />
+            </div>
+            <div class="marginsForDpLink">
+            <input class="proLinkInput" type="text" id="dpLink" placeholder="Link to Your Profile Picture" value=${proLinkValue} name="dpLink" onblur="loadTheImage()">
+            </div>
+          </div>
+          <hr/>
+          <div>
+            <h4><div style="display:flex;justify-content:center;align-items:center;">Edit Bio</div></h4>
+            <textarea id="theBioArea" cols="71" rows="10" maxLength="300">${proBio}</textarea>
+          </div>
+          <hr/>
+          <div class="loader"></div>
+          <div class="justMargin">
+            <button id="editProfileSave" type="submit">Save Changes</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="theErrorFooter">
+        <ul>
+          <li><a class="footerOptions" href="">Created with &#10084; by Arunava</a><li>
+        </ul>
+        </div>
+      <script src="/ui/profileEdit.js"></script>
+    </body>
+    </html>
+
+    `;
+    
+    return editPage;
 }
 
 function hash (input, salt) {
