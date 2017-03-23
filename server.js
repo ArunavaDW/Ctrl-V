@@ -613,12 +613,15 @@ function createProfileTemplate(userData) {
     var ctrlvRecents = ``;
     
     pool.query('SELECT * FROM "pastes" WHERE paste_username = $1', [userData.username], function(err, result) {
+        console.log(result);
         if (err && result.rows.length === 0){
             ctrlvHits = undefined;
         } else {
             ctrlvHits = result.rows.length;
             if(ctrlvHits > 5){
                 limit = 5;
+            } else {
+                limit = ctrlvHits;
             }
             
             for(i=0; i<limit; i++){
