@@ -212,7 +212,7 @@ app.get('/pastes/:pasteLink', function (req, res) {
 });
 
 app.get('/NewPaste', function(req, res) {
-   res.send(thePastePage()); 
+   res.send(thePastePage(checkLogin(req, res), returnUserDpLink(req, res))); 
 });
 
 app.get('/browse', function(req, res){
@@ -741,13 +741,13 @@ function createProfileTemplate(userData, pastesData, ctrlvHits) {
         return profileTemplate;
     }
 
-function thePastePage(dpLink) {
+function thePastePage(loggedIn, dpLink) {
     
     var loginBlock = LoginBlock;
     var loadMainScriptHtml = `<script src="/ui/main.js"></script>`;
     var loggedInSign = "";
     
-    if(LoggedIn) {
+    if(loggedIn) {
         loginBlock = ``;
         loadMainScriptHtml = ``;
         loggedInSign = smallProPic(dpLink);
@@ -931,7 +931,7 @@ function smallProPic(picLink){
         picLink = '/ui/blank-profile-picture.png';
     }
     var smallDpLiHtml = `
-    <li class="goRight"><a class="fixPadd" href="/logout"><img id="theSmallProfilePicture" src=${picLink} alt="Profile Picture"
+    <li class="goRight"><a class="fixPadd" href="#"><img id="theSmallProfilePicture" src=${picLink} alt="Profile Picture"
       width="40" height="40" class="small_profile_picture"/></a></li>
     `;
     
