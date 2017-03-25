@@ -17,7 +17,8 @@ create_paste_btn.onclick = function() {
 
     if(request.readystate === XMLHttpRequest.DONE){
       if(request.status === 200){
-          alert("Paste Created Successfully!");
+          console.log(request.response);
+          window.location = "http://arunavadw.imad.hasura-app.io/pastes/"+request.response;
       } else {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
       }
