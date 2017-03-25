@@ -12,15 +12,18 @@ function aRedMessageToggler() {
 }
 
 create_paste_btn.onclick = function() {
+  create_paste_btn.innerHTML = "Pasting...";
   var request = new XMLHttpRequest();
   request.onreadystatechange = function() {
 
-    if(request.readystate === XMLHttpRequest.DONE){
+    if(request.readyState === XMLHttpRequest.DONE){
       if(request.status === 200){
           console.log(request.response);
+          create_paste_btn.innerHTML = "Create New Paste";
           window.location = "http://arunavadw.imad.hasura-app.io/pastes/"+request.response;
       } else {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
+        create_paste_btn.innerHTML = "Create New Paste";
       }
     }
   };
