@@ -16,7 +16,7 @@ login_btn.onclick = function() {
 
     if(request.readystate === XMLHttpRequest.DONE){
       if(request.status === 200){
-          alert("Logged In!");
+          console.log("Logged In");
       } else {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
       }
