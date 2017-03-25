@@ -2,14 +2,10 @@ var create_account_btn = document.getElementById('create_account_form_submit');
 var login_btn = document.getElementById('login_btn');
 var loader = document.getElementsByClassName('loader');
 
-
-
-console.log("fgfdgdf");
-
 login_btn.onclick = function() {
     
     loader[1].style.display = "inline-block";
-    login_btn.value = "Logging You In...";
+    login_btn.innerHTML = "Logging You In...";
     
     var request = new XMLHttpRequest();
 
@@ -18,19 +14,17 @@ login_btn.onclick = function() {
     if(request.readyState === XMLHttpRequest.DONE){
         if(request.status === 200){
             loader[1].style.display = "none";
-            login_btn.value = "Log In";
+            login_btn.innerHTML = "Log In";
             location.reload();
         } else {
             alert("Some Internal Error Occured!\nPlease Try Again Later!");
+            login_btn.innerHTML = "Log In";
         }
     }
     };
 
   var username = document.getElementById('the_uname_login').value;
   var password  = document.getElementById('the_passwd_login').value;
-
-  console.log(password);
-  console.log(username);
 
   request.open('POST', 'http://arunavadw.imad.hasura-app.io/login', true);
   request.setRequestHeader('Content-Type', 'application/json');
@@ -42,7 +36,7 @@ login_btn.onclick = function() {
 create_account_btn.onclick = function() {
   
   loader[0].style.display = "inline-block";
-  create_account_btn.value = "Creating Your Account...";
+  create_account_btn.innerHTML = "Creating Your Account...";
   var request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
@@ -50,10 +44,11 @@ create_account_btn.onclick = function() {
     if(request.readyState === XMLHttpRequest.DONE){
       if(request.status === 200){
           loader[0].style.display = "none";
-          create_account_btn.value = "Create New Account";
-          location.reload();
+          create_account_btn.innerHTML = "Create New Account";
+          alert("Account Created Successfully!\nLogin to Continue!");
       } else {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
+        create_account_btn.innerHTML = "Create New Account";
       }
     }
   };
