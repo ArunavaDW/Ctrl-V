@@ -14,7 +14,7 @@ function loadTheImage(){
 
 editSaveBtn.onclick = function() {
   loader[0].style.display = "inline-block";
-  editSaveBtn.value = "Saving Changes...";
+  editSaveBtn.innerHTML = "Saving Changes...";
   
   var request = new XMLHttpRequest();
 
@@ -23,11 +23,11 @@ editSaveBtn.onclick = function() {
     if(request.readyState === XMLHttpRequest.DONE){
       if(request.status === 200){
           loader[0].style.display = "none";
-          editSaveBtn.value = "Changes Saved";
-          setTimeout(editSaveBtn.value = "Save Changes", 700);
+          editSaveBtn.innerHTML = "Changes Saved";
+          setTimeout(editSaveBtn.innerHTML = "Save Changes", 700);
       } else {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
-        editSaveBtn.value = "Save Changes";
+        editSaveBtn.innerHTML = "Save Changes";
       }
     }
   };
