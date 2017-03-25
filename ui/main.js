@@ -9,6 +9,7 @@ console.log("fgfdgdf");
 login_btn.onclick = function() {
     
     loader[1].style.display = "inline-block";
+    login_btn.value = "Logging You In...";
     
     var request = new XMLHttpRequest();
 
@@ -16,6 +17,8 @@ login_btn.onclick = function() {
     
     if(request.readyState === XMLHttpRequest.DONE){
         if(request.status === 200){
+            loader[1].style.display = "none";
+            login_btn.value = "Log In";
             location.reload();
         } else {
             alert("Some Internal Error Occured!\nPlease Try Again Later!");
@@ -39,13 +42,16 @@ login_btn.onclick = function() {
 create_account_btn.onclick = function() {
   
   loader[0].style.display = "inline-block";
+  create_account_btn.value = "Creating Your Account...";
   var request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
 
     if(request.readyState === XMLHttpRequest.DONE){
       if(request.status === 200){
-          alert("Account Created Successfully!");
+          loader[0].style.display = "none";
+          create_account_btn.value = "Create New Account";
+          location.reload();
       } else {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
       }
@@ -57,9 +63,7 @@ create_account_btn.onclick = function() {
   var mailAddr  = document.getElementById('email_create').value;
   var password  = document.getElementById('pwd_create').value;
   var userName  = document.getElementById('uname').value;
-  console.log(password);
-  console.log(userName);
-  console.log('3434');
+
   request.open('POST', 'http://arunavadw.imad.hasura-app.io/create_account', true);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify({username: userName,
