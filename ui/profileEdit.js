@@ -14,6 +14,7 @@ function loadTheImage(){
 
 editSaveBtn.onclick = function() {
   loader[0].style.display = "inline-block";
+  editSaveBtn.value = "Saving Changes...";
   
   var request = new XMLHttpRequest();
 
@@ -21,9 +22,12 @@ editSaveBtn.onclick = function() {
 
     if(request.readyState === XMLHttpRequest.DONE){
       if(request.status === 200){
-          alert("Changes Saved!");
+          loader[0].style.display = "none";
+          editSaveBtn.value = "Changes Saved";
+          setTimeout(editSaveBtn.value = "Save Changes", 700);
       } else {
         alert("Some Internal Error Occured!\nPlease Try Again Later!");
+        editSaveBtn.value = "Save Changes";
       }
     }
   };
