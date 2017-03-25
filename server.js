@@ -260,7 +260,7 @@ app.post('/login', function(req, res){
                     // internally, on the server side, it maps the session id to an object
                     // { auth: {userId }}
                     
-                    res.redirect('/');
+                    res.send('Logging In');
                     
                   } else {
                       res.end(errorTemplate("Username/Password Invalid!", checkLogin(req, res), returnUserDpLink(req, res)));
