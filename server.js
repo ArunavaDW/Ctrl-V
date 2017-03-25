@@ -337,7 +337,7 @@ app.post('/create_account', function(req, res){
                       res.status(500).send(err.toString());
                     } else {
                       //res.send("Successfully Created User!");
-                      res.redirect('/');
+                      res.send("Account Created Successfully!");
                     }
                   });
 });
@@ -363,10 +363,12 @@ function errorTemplate(errorMessage, loggedIn, dpLink){
     
     var loginBlock = LoginBlock;
     var loggedInSign = "";
+    var mainJsScript = `<script src="/ui/main.js"></script`;
     
     if(loggedIn){
         loginBlock = ``;
         loggedInSign = smallProPic(dpLink);
+        mainJsScript = "";
         
     }
     
@@ -384,7 +386,7 @@ function errorTemplate(errorMessage, loggedIn, dpLink){
       access it from any where in the web">
       <meta name="keywords" content="ctrl, v, paste, clipboard, online">
       <meta name="author" content="Arunava Chakraborty">
-      <meta name="viewport" content="width=device-width initial-scale=2.0">
+      <meta name="viewport" content="width=device-width initial-scale=1.0">
 
       <link rel="stylesheet" href="/ui/style.css">
     </head>
@@ -417,7 +419,7 @@ function errorTemplate(errorMessage, loggedIn, dpLink){
       <li><a class="footerOptions" href="">Created with &#10084; by Arunava</a><li>
     </ul>
     </div>
-  
+    ${mainJsScript}
     </body>
     </html>
 `;
@@ -843,8 +845,7 @@ function editProfilePage(userInfo) {
       proBio = "";
     }
     
-    if(proLink === null) {
-        proLink = '/ui/blank-profile-picture.png';
+    if(proLink === '/ui/blank-profile-picture.png') {
         proLinkValue = "";
     }
     
