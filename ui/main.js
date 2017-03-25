@@ -12,16 +12,16 @@ login_btn.onclick = function() {
     
     var request = new XMLHttpRequest();
 
-  request.onreadystatechange = function() {
-
-    if(request.readystate === XMLHttpRequest.DONE){
-      if(request.status === 200){
-          console.log("Logged In");
-      } else {
-        alert("Some Internal Error Occured!\nPlease Try Again Later!");
-      }
+    request.onreadystatechange = function() {
+    
+    if(request.readyState === XMLHttpRequest.DONE){
+        if(request.status === 200){
+            alert("Logged In");
+        } else {
+            alert("Some Internal Error Occured!\nPlease Try Again Later!");
+        }
     }
-  };
+    };
 
   var username = document.getElementById('the_uname_login').value;
   var password  = document.getElementById('the_passwd_login').value;
@@ -43,7 +43,7 @@ create_account_btn.onclick = function() {
 
   request.onreadystatechange = function() {
 
-    if(request.readystate === XMLHttpRequest.DONE){
+    if(request.readyState === XMLHttpRequest.DONE){
       if(request.status === 200){
           alert("Account Created Successfully!");
       } else {
