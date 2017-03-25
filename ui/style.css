@@ -475,3 +475,13 @@ label{
 .requiredClass1 {
   width: 30%;
 }
+
+.fixPadd {
+  padding: 0px 25px;
+  width: 50px;
+}
+
+.small_profile_picture {
+  display: block;
+  border-radius: 60px;
+}
