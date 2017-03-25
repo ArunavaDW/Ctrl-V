@@ -169,7 +169,7 @@ app.get('/users/:username', function(req, res){
            }
        });
     } else {
-        res.end(errorTemplate("Kindly, Login First!"));
+        res.end(errorTemplate("Kindly, Login First!", checkLogin(req, res)));
     }
 });
 
@@ -181,7 +181,7 @@ app.get('/EditProfile', function(req, res){
       if(checkLogin(req, res)){
           pool.query('SELECT * FROM "ctrlvusers" WHERE username = $1', [req.session.auth.userName], function(err, result){
               if(err){
-                  res.status(500).send(errorTemplate("Unknown Error!"));
+                  res.status(500).send(errorTemplate("Unknown Error!", checkLogin(req, res)));
               } else {
                   if(result.rows.length === 0){
                       res.status(500).send(errorTemplate("Unknown Error!"));
@@ -202,9 +202,9 @@ app.get('/pastes/:pasteLink', function (req, res) {
           res.status(500).send(err.toString());
         } else {
               if (result.rows.length === 0) {
-                  res.status(403).send(errorTemplate("Paste Link Invalid!"));
+                  res.status(403).send(errorTemplate("Paste Link Invalid!", checkLogin(req, res)));
               } else {
-                  res.end(createPasteTemplate(result.rows[0]));
+                  res.end(createPasteTemplate(result.rows[0], checkLogin(req, res)));
               }
               }
         
@@ -221,9 +221,9 @@ app.get('/browse', function(req, res){
           res.status(500).end(err.toString());
       } else {
           if (response.rows.length === 0) {
-            res.status(403).end(errorTemplate("No Pastes Made!"));
+            res.status(403).end(errorTemplate("No Pastes Made!", checkLogin(req, res)));
             } else {
-                res.end(createBrowsePage(response));
+                res.end(createBrowsePage(response, checkLogin(req, res)));
             }
       }
    });
@@ -265,7 +265,7 @@ app.post('/login', function(req, res){
                     res.redirect('/');
                     
                   } else {
-                      res.end(errorTemplate("Username/Password Invalid!"));
+                      res.end(errorTemplate("Username/Password Invalid!", checkLogin(req, res)));
                   }
               }
         }
@@ -275,7 +275,7 @@ app.post('/login', function(req, res){
 app.get('/logout', function (req, res) {
    delete req.session.auth;
    LoggedIn = false;
-   res.end(errorTemplate("You are now Logged out!\nHope to See you Soon!"));
+   res.end(errorTemplate("You are now Logged out!\nHope to See you Soon!", checkLogin(req, res)));
 });
 
 
@@ -311,7 +311,7 @@ app.post('/create-paste', function(req, res){
     [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody, pasteUsername], function(err, result) {
         
         if(err){
-            res.status(500).send(err.toString());
+            res.status(500).send(errorTemplate(err.toString(), checkLogin(req, res)));
         } else {
             res.end('/pastes/'+pasteLink);
         }
@@ -349,7 +349,7 @@ app.post('/edit-profile-save', function(req, res) {
     
     pool.query('UPDATE "ctrlvusers" SET "bio" = $1, "dp_link" = $2 WHERE (("username" = $3))', [bio, dpLink, req.session.auth.userName], function(err, result) {
        if(err){
-           res.status(500).send(errorTemplate("Something Went Wrong!\nPlease try Again!"));
+           res.status(500).send(errorTemplate("Something Went Wrong!\nPlease try Again!", checkLogin(req, res)));
        } else {
            res.redirect('/');
        }
@@ -360,12 +360,15 @@ app.use(function(request, response){
     response.end(errorTemplate("Page Not Found!"));
 });
 
-function errorTemplate(errorMessage){
+function errorTemplate(errorMessage, loggedIn){
     
     var loginBlock = LoginBlock;
+    var loggedInSign = "";
     
-    if(LoggedIn){
+    if(loggedIn){
         loginBlock = ``;
+        loggedInSign = smallProPic();
+        
     }
     
     var errorTemplate = `
@@ -396,6 +399,7 @@ function errorTemplate(errorMessage){
           <li class="navBarOptions"><a href="/">Main</a></li>
           <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
           <li class="navBarOptions"><a href="/browse">Browse</a></li>
+          ${loggedInSign}
         </ul>
       </div>
 
@@ -422,25 +426,7 @@ function errorTemplate(errorMessage){
     return errorTemplate;
 }
 
-function createBrowsePage(pastesData){
-    
-    var eachLayout = 
-    `<a class="dontDecorate" href="">
-      <div class="aShortPasteLayout the_box">
-        <div>
-        <div>
-          <h3>${title}</h3>
-        </div>
-        <div>
-          <h4>${author}</h4>
-        </div>
-        </div>
-        <div>
-          <h5 class="goAsh">${time}</h5>
-        </div>
-      </div>
-    </a>
-    `;
+function createBrowsePage(pastesData, loggedIn){
     var theTotalLayout = "";
     
     var author;
@@ -448,6 +434,11 @@ function createBrowsePage(pastesData){
     var time;
     var username;
     var link;
+    var loggedInSign = "";
+    
+    if(loggedIn) {
+        loggedInSign = smallProPic();
+    }
     
     for(i=0; i<pastesData.rows.length; i++){
         author = pastesData.rows[i].paste_author;
@@ -516,6 +507,7 @@ function createBrowsePage(pastesData){
             <li class="navBarOptions"><a  class="ripple" href="/">Main</a></li>
             <li class="navBarOptions"><a class="ripple" href="/NewPaste">New Paste</a></li>
             <li class="navBarOptions"><a class="ripple" href="/browse">Browse</a></li>
+            ${loggedInSign}
           </ul>
         </div>
     
@@ -543,13 +535,18 @@ function createBrowsePage(pastesData){
     return browsePage;
 }
 
-function createPasteTemplate(pasteData){
+function createPasteTemplate(pasteData, loggedIn){
     var author = pasteData.paste_author;
     var time = pasteData.paste_time;
     var body = pasteData.paste_body;
     var link = pasteData.paste_link;
     var title = pasteData.paste_title;
     var completeLink = "http://arunavadw.imad.hasura-app.io/pastes/"+link;
+    var loggedInSign = "";
+    
+    if(loggedIn){
+        loggedInSign = smallProPic();
+    }
     
     var pasteTemplate = `
     <!DOCTYPE html>
@@ -582,6 +579,7 @@ function createPasteTemplate(pasteData){
           <li class="navBarOptions"><a href="/">Main</a></li>
           <li class="navBarOptions"><a href="/NewPaste">New Paste</a></li>
           <li class="navBarOptions"><a href="/browse">Browse</a></li>
+          ${loggedInSign}
         </ul>
       </div>
 
@@ -746,10 +744,12 @@ function thePastePage() {
     
     var loginBlock = LoginBlock;
     var loadMainScriptHtml = `<script src="/ui/main.js"></script>`;
+    var loggedInSign = "";
     
     if(LoggedIn) {
         loginBlock = ``;
         loadMainScriptHtml = ``;
+        loggedInSign = smallProPic();
     }
     
     var pasteHtml = `
@@ -783,6 +783,7 @@ function thePastePage() {
           <li class="navBarOptions"><a href="/">Main</a></li>
           <li class="navBarOptions"><a href="#">New Paste</a></li>
           <li class="navBarOptions"><a href="/browse">Browse</a></li>
+          ${loggedInSign}
         </ul>
       </div>
     
@@ -921,6 +922,16 @@ function editProfilePage(userInfo) {
     `;
     
     return editPage;
+}
+
+function smallProPic(){
+    
+    var smallDpLiHtml = `
+    <li class="goRight"><a class="fixPadd" href="/logout"><img id="theSmallProfilePicture" src="blank-profile-picture.png" alt="Profile Picture"
+      width="40" height="40" class="small_profile_picture"/></a></li>
+    `;
+    
+    return smallDpLiHtml;
 }
 
 function hash (input, salt) {
