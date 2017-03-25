@@ -136,8 +136,6 @@ app.get('/ctrlVUsers-db', function (req, res) {
 
 app.get('/', function (req, res) {
     
-    console.log('We are here');
-    console.log(checkLogin(req, res));
     if (checkLogin(req, res)) {
        res.redirect('/users/'+req.session.auth.userName);
    } else {
