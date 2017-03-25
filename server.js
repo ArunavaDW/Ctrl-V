@@ -169,7 +169,7 @@ app.get('/users/:username', function(req, res){
            }
        });
     } else {
-        res.end(errorTemplate("Kindly, Login First!", checkLogin(req, res)));
+        res.end(errorTemplate("Kindly, Login First!", checkLogin(req, res), returnUserDpLink(req, res)));
     }
 });
 
@@ -181,17 +181,17 @@ app.get('/EditProfile', function(req, res){
       if(checkLogin(req, res)){
           pool.query('SELECT * FROM "ctrlvusers" WHERE username = $1', [req.session.auth.userName], function(err, result){
               if(err){
-                  res.status(500).send(errorTemplate("Unknown Error!", checkLogin(req, res)));
+                  res.status(500).send(errorTemplate("Unknown Error!", checkLogin(req, res), returnUserDpLink(req, res)));
               } else {
                   if(result.rows.length === 0){
-                      res.status(500).send(errorTemplate("Unknown Error!"));
+                      res.status(500).send(errorTemplate("Unknown Error!"), checkLogin(req, res), returnUserDpLink(req, res));
                   } else {
                       res.send(editProfilePage(result.rows[0]));
                   }
               }
           });
       } else{
-          res.end(errorTemplate("Sorry, You are not Authorized!"));
+          res.end(errorTemplate("Sorry, You are not Authorized!"), checkLogin(req, res), returnUserDpLink(req, res));
       }
 });
 
@@ -202,9 +202,9 @@ app.get('/pastes/:pasteLink', function (req, res) {
           res.status(500).send(err.toString());
         } else {
               if (result.rows.length === 0) {
-                  res.status(403).send(errorTemplate("Paste Link Invalid!", checkLogin(req, res)));
+                  res.status(403).send(errorTemplate("Paste Link Invalid!", checkLogin(req, res), returnUserDpLink(req, res)));
               } else {
-                  res.end(createPasteTemplate(result.rows[0], checkLogin(req, res)));
+                  res.end(createPasteTemplate(result.rows[0], checkLogin(req, res), returnUserDpLink(req, res)));
               }
               }
         
@@ -223,7 +223,7 @@ app.get('/browse', function(req, res){
           if (response.rows.length === 0) {
             res.status(403).end(errorTemplate("No Pastes Made!", checkLogin(req, res)));
             } else {
-                res.end(createBrowsePage(response, checkLogin(req, res)));
+                res.end(createBrowsePage(response, checkLogin(req, res), returnUserDpLink(req, res)));
             }
       }
    });
@@ -257,7 +257,7 @@ app.post('/login', function(req, res){
                   if (hashedPassword === dbString) {
                     
                     // Set the session
-                    req.session.auth = {userId: result.rows[0].id, userName: result.rows[0].username};
+                    req.session.auth = {userId: result.rows[0].id, userName: result.rows[0].username, userProPicLink: result.rows[0].dp_link};
                     // set cookie with a session id
                     // internally, on the server side, it maps the session id to an object
                     // { auth: {userId }}
@@ -265,7 +265,7 @@ app.post('/login', function(req, res){
                     res.redirect('/');
                     
                   } else {
-                      res.end(errorTemplate("Username/Password Invalid!", checkLogin(req, res)));
+                      res.end(errorTemplate("Username/Password Invalid!", checkLogin(req, res), returnUserDpLink(req, res)));
                   }
               }
         }
@@ -275,7 +275,7 @@ app.post('/login', function(req, res){
 app.get('/logout', function (req, res) {
    delete req.session.auth;
    LoggedIn = false;
-   res.end(errorTemplate("You are now Logged out!\nHope to See you Soon!", checkLogin(req, res)));
+   res.end(errorTemplate("You are now Logged out!\nHope to See you Soon!", checkLogin(req, res), returnUserDpLink(req, res)));
 });
 
 
@@ -301,17 +301,18 @@ app.post('/create-paste', function(req, res){
     var pasteAuthor = req.body.PasteAuthor;
     var pasteTime = req.body.PasteTime;
     var PasteAnon = req.body.AnonPaste;
+    var pasteAuthorLink = req.body.PasteAuthorLink;
     var pasteLink = crypto.randomBytes(8).toString('hex');
     var pasteUsername = null;
     if(LoggedIn && !PasteAnon) {
         pasteUsername = req.session.auth.userName;
     }
     
-    pool.query('INSERT INTO "pastes" (paste_author, paste_title, paste_time, paste_link, paste_body, paste_username) VALUES ($1, $2, $3, $4, $5, $6)', 
-    [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody, pasteUsername], function(err, result) {
+    pool.query('INSERT INTO "pastes" (paste_author, paste_title, paste_time, paste_link, paste_body, paste_username, paste_user_dp_link) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
+    [pasteAuthor, pasteTitle, pasteTime, pasteLink, pasteBody, pasteUsername, pasteAuthorLink], function(err, result) {
         
         if(err){
-            res.status(500).send(errorTemplate(err.toString(), checkLogin(req, res)));
+            res.status(500).send(errorTemplate(err.toString(), checkLogin(req, res), returnUserDpLink(req, res)));
         } else {
             res.end('/pastes/'+pasteLink);
         }
@@ -349,7 +350,7 @@ app.post('/edit-profile-save', function(req, res) {
     
     pool.query('UPDATE "ctrlvusers" SET "bio" = $1, "dp_link" = $2 WHERE (("username" = $3))', [bio, dpLink, req.session.auth.userName], function(err, result) {
        if(err){
-           res.status(500).send(errorTemplate("Something Went Wrong!\nPlease try Again!", checkLogin(req, res)));
+           res.status(500).send(errorTemplate("Something Went Wrong!\nPlease try Again!", checkLogin(req, res), returnUserDpLink(req, res)));
        } else {
            res.redirect('/');
        }
@@ -360,14 +361,14 @@ app.use(function(request, response){
     response.end(errorTemplate("Page Not Found!"));
 });
 
-function errorTemplate(errorMessage, loggedIn){
+function errorTemplate(errorMessage, loggedIn, dpLink){
     
     var loginBlock = LoginBlock;
     var loggedInSign = "";
     
     if(loggedIn){
         loginBlock = ``;
-        loggedInSign = smallProPic();
+        loggedInSign = smallProPic(dpLink);
         
     }
     
@@ -426,7 +427,7 @@ function errorTemplate(errorMessage, loggedIn){
     return errorTemplate;
 }
 
-function createBrowsePage(pastesData, loggedIn){
+function createBrowsePage(pastesData, loggedIn, dpLink){
     var theTotalLayout = "";
     
     var author;
@@ -437,7 +438,7 @@ function createBrowsePage(pastesData, loggedIn){
     var loggedInSign = "";
     
     if(loggedIn) {
-        loggedInSign = smallProPic();
+        loggedInSign = smallProPic(dpLink);
     }
     
     for(i=0; i<pastesData.rows.length; i++){
@@ -535,7 +536,7 @@ function createBrowsePage(pastesData, loggedIn){
     return browsePage;
 }
 
-function createPasteTemplate(pasteData, loggedIn){
+function createPasteTemplate(pasteData, loggedIn, dpLink){
     var author = pasteData.paste_author;
     var time = pasteData.paste_time;
     var body = pasteData.paste_body;
@@ -545,7 +546,7 @@ function createPasteTemplate(pasteData, loggedIn){
     var loggedInSign = "";
     
     if(loggedIn){
-        loggedInSign = smallProPic();
+        loggedInSign = smallProPic(dpLink);
     }
     
     var pasteTemplate = `
@@ -740,7 +741,7 @@ function createProfileTemplate(userData, pastesData, ctrlvHits) {
         return profileTemplate;
     }
 
-function thePastePage() {
+function thePastePage(dpLink) {
     
     var loginBlock = LoginBlock;
     var loadMainScriptHtml = `<script src="/ui/main.js"></script>`;
@@ -749,7 +750,7 @@ function thePastePage() {
     if(LoggedIn) {
         loginBlock = ``;
         loadMainScriptHtml = ``;
-        loggedInSign = smallProPic();
+        loggedInSign = smallProPic(dpLink);
     }
     
     var pasteHtml = `
@@ -924,14 +925,25 @@ function editProfilePage(userInfo) {
     return editPage;
 }
 
-function smallProPic(){
+function smallProPic(picLink){
     
+    if(picLink == null){
+        picLink = '/ui/blank-profile-picture.png';
+    }
     var smallDpLiHtml = `
-    <li class="goRight"><a class="fixPadd" href="/logout"><img id="theSmallProfilePicture" src="blank-profile-picture.png" alt="Profile Picture"
+    <li class="goRight"><a class="fixPadd" href="/logout"><img id="theSmallProfilePicture" src=${picLink} alt="Profile Picture"
       width="40" height="40" class="small_profile_picture"/></a></li>
     `;
     
     return smallDpLiHtml;
+}
+
+function returnUserDpLink(req, res) {
+    if (req.session && req.session.auth && req.session.auth.userId) {
+       // Load the user object
+       return req.session.auth.userProPicLink;
+    }
+    return '/ui/blank-profile-picture.png';
 }
 
 function hash (input, salt) {
