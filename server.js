@@ -312,7 +312,7 @@ app.post('/create-paste', function(req, res){
         if(err){
             res.status(500).send(errorTemplate(err.toString(), checkLogin(req, res), returnUserDpLink(req, res)));
         } else {
-            res.end('/pastes/'+pasteLink);
+            res.send(pasteLink);
         }
         });
 
