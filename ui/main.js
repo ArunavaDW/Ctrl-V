@@ -16,7 +16,7 @@ login_btn.onclick = function() {
     
     if(request.readyState === XMLHttpRequest.DONE){
         if(request.status === 200){
-            alert("Logged In");
+            location.reload();
         } else {
             alert("Some Internal Error Occured!\nPlease Try Again Later!");
         }
