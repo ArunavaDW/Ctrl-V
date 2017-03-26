@@ -350,7 +350,8 @@ app.post('/edit-profile-save', function(req, res) {
        if(err){
            res.status(500).send(errorTemplate("Something Went Wrong!\nPlease try Again!", checkLogin(req, res), returnUserDpLink(req, res)));
        } else {
-           res.redirect('/');
+           req.session.auth.userProPicLink = dpLink;
+           res.send("Changes Saved!");
        }
     });
 });
