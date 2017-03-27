@@ -485,3 +485,8 @@ label{
   display: block;
   border-radius: 60px;
 }
+
+#theNavigationBar {
+    position: fixed;
+    z-index: 1000;
+}
