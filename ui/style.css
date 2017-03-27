@@ -492,4 +492,7 @@ label{
     z-index: 1000;
     left: 0;
     right: 0;
+    -webkit-box-shadow: 0 8px 6px -6px #D3D3D3;
+    -moz-box-shadow: 0 8px 6px -6px #D3D3D3;
+     box-shadow: 0 8px 6px -6px #D3D3D3;
 }
