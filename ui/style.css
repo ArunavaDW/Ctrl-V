@@ -3,6 +3,7 @@
 .center_wrap {
   width: 800px;
   margin: 0 auto;
+  padding-top: 100px;
 }
 
 .the_name {
@@ -489,4 +490,6 @@ label{
 #theNavigationBar {
     position: fixed;
     z-index: 1000;
+    left: 0;
+    right: 0;
 }
