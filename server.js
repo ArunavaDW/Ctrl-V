@@ -771,7 +771,7 @@ function thePastePage(loggedIn, dpLink) {
       access it from any where in the web">
       <meta name="keywords" content="ctrl, v, paste, clipboard, online">
       <meta name="author" content="Arunava Chakraborty">
-      <meta name="viewport" content="width=device-width initial-scale=2.0">
+      <meta name="viewport" content="width=device-width initial-scale=1.0">
     
       <link rel="stylesheet" href="/ui/style.css">
     </head>
