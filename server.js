@@ -585,7 +585,7 @@ function createPasteTemplate(pasteData, loggedIn, dpLink){
         </ul>
       </div>
 
-      <div>
+      <div class="topPadd">
 
       <div class="getSomeSpace">
       <div>
