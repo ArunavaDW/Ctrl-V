@@ -26,7 +26,7 @@ login_btn.onclick = function() {
   var username = document.getElementById('the_uname_login').value;
   var password  = document.getElementById('the_passwd_login').value;
 
-  request.open('POST', 'http://arunavadw.imad.hasura-app.io/login', true);
+  request.open('POST', '/login', true);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify({username: username,
                               password: password}));
