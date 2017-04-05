@@ -931,15 +931,8 @@ function smallProPic(picLink){
         picLink = '/ui/blank-profile-picture.png';
     }
     var smallDpLiHtml = `
-    <div class="dropdown">
-    <li class="goRight"><a class="fixPadd"><button class="dropbtn"><img id="theSmallProfilePicture" src=${picLink} alt="Profile Picture"
-      width="40" height="40" class="small_profile_picture"/></button></a></li>
-      <div class="dropdown-content">
-      <a href="/">Profile</a>
-      <a href="/EditProfile">Edit Profile</a>
-      <a href="/logout">LogOut</a>
-    </div>
-      </div>
+    <li class="goRight"><a class="fixPadd"><img id="theSmallProfilePicture" src=${picLink} alt="Profile Picture"
+      width="40" height="40" class="small_profile_picture"/></a></li>
     `;
     
     return smallDpLiHtml;
