@@ -932,8 +932,8 @@ function smallProPic(picLink){
     }
     var smallDpLiHtml = `
     <div class="dropdown">
-    <li class="goRight"><button class="dropbtn fixPadd"><img id="theSmallProfilePicture" src=${picLink} alt="Profile Picture"
-      width="40" height="40" class="small_profile_picture"/></button></li>
+    <li class="goRight"><a class="fixPadd"><button class="dropbtn"><img id="theSmallProfilePicture" src=${picLink} alt="Profile Picture"
+      width="40" height="40" class="small_profile_picture"/></button></a></li>
       <div class="dropdown-content">
       <a href="/">Profile</a>
       <a href="/EditProfile">Edit Profile</a>
