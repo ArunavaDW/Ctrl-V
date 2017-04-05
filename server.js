@@ -606,7 +606,7 @@ function createPasteTemplate(pasteData, loggedIn, dpLink){
 
       </div>
       <div class="getComfortable">
-      <p class="showAsFormatted">${body}</p>
+      <p class="showAsFormatted"><textarea cols="165" rows="20">${body}</textarea></p>
       </div>
       </div>
     </body>
